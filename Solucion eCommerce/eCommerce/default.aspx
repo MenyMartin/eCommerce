@@ -6,8 +6,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
 
-        <!-- Título -->
-        <h1 class="text-center mb-4">Bienvenido a eCommerce</h1>
 
         <div class="container mt-4">
             <div class="row">
