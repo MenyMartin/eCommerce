@@ -56,3 +56,9 @@ h1 {
 b {
     color: green;
 }
+
+.carousel-item img {
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+}
