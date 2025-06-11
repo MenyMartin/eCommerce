@@ -1,0 +1,72 @@
+﻿CREATE DATABASE EcommenyDB;
+GO
+
+USE EcommenyDB;
+GO
+
+CREATE TABLE Perfiles (
+    IdPerfil INT PRIMARY KEY IDENTITY(1,1),
+    NombrePerfil NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Usuarios (
+    IdUsuario INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(50) NOT NULL,
+    Apellido NVARCHAR(50) NOT NULL,
+    Edad INT,
+    DNI CHAR(8) UNIQUE NOT NULL,
+    Direccion NVARCHAR(100),
+    FotoPerfil NVARCHAR(MAX),
+    IdPerfil INT NOT NULL,
+    FOREIGN KEY (IdPerfil) REFERENCES Perfiles(IdPerfil)
+);
+
+CREATE TABLE Productos (
+    IdProducto INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    Marca NVARCHAR(50),
+    Tipo NVARCHAR(50),
+    Precio DECIMAL(10,2) NOT NULL,
+    Stock INT NOT NULL,
+    IdVendedor INT NOT NULL,
+    FOREIGN KEY (IdVendedor) REFERENCES Usuarios(IdUsuario)
+);
+
+CREATE TABLE Carritos (
+    IdCarrito INT PRIMARY KEY IDENTITY(1,1),
+    IdUsuario INT NOT NULL,
+    FechaCreacion DATETIME DEFAULT GETDATE(),
+    Activo BIT DEFAULT 1,
+    FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+);
+
+CREATE TABLE CarritoDetalle (
+    IdDetalle INT PRIMARY KEY IDENTITY(1,1),
+    IdCarrito INT NOT NULL,
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnitario DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito),
+    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+);
+
+CREATE TABLE Pedidos (
+    IdPedido INT PRIMARY KEY IDENTITY(1,1),
+    IdUsuario INT NOT NULL,
+    FechaPedido DATETIME DEFAULT GETDATE(),
+    Estado NVARCHAR(50) DEFAULT 'Pendiente',
+    Total DECIMAL(12,2),
+    FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+);
+
+
+CREATE TABLE PedidoDetalle (
+    IdDetalle INT PRIMARY KEY IDENTITY(1,1),
+    IdPedido INT NOT NULL,
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnitario DECIMAL(10,2) NOT NULL,
+    Subtotal AS (Cantidad * PrecioUnitario) PERSISTED,
+    FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido),
+    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+);
