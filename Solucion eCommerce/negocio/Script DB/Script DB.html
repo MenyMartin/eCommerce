@@ -10,15 +10,17 @@ CREATE TABLE Perfiles (
 );
 
 CREATE TABLE Usuarios (
-    IdUsuario INT PRIMARY KEY IDENTITY(1,1),
+    DNI BIGINT PRIMARY KEY,
     Nombre NVARCHAR(50) NOT NULL,
     Apellido NVARCHAR(50) NOT NULL,
-    Edad INT,
-    DNI CHAR(8) UNIQUE NOT NULL,
+    Edad INT CHECK (Edad >= 0),
     Direccion NVARCHAR(100),
-    FotoPerfil NVARCHAR(MAX),
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Contraseña NVARCHAR(255) NOT NULL,
+    URLFotoPerfil NVARCHAR(255),
+    FechaRegistro DATE NOT NULL DEFAULT GETDATE(),
     IdPerfil INT NOT NULL,
-    FOREIGN KEY (IdPerfil) REFERENCES Perfiles(IdPerfil)
+    CONSTRAINT FK_Usuarios_Perfiles FOREIGN KEY (IdPerfil) REFERENCES Perfiles(IdPerfil)
 );
 
 CREATE TABLE Productos (
@@ -26,47 +28,59 @@ CREATE TABLE Productos (
     Nombre NVARCHAR(100) NOT NULL,
     Marca NVARCHAR(50),
     Tipo NVARCHAR(50),
-    Precio DECIMAL(10,2) NOT NULL,
-    Stock INT NOT NULL,
-    IdVendedor INT NOT NULL,
-    FOREIGN KEY (IdVendedor) REFERENCES Usuarios(IdUsuario)
+    Precio DECIMAL(10, 2) NOT NULL CHECK (Precio >= 0),
+    Stock INT NOT NULL CHECK (Stock >= 0),
+    Descripcion NVARCHAR(MAX),
+    FechaPublicacion DATE NOT NULL DEFAULT GETDATE(),
+    URLFotoProducto NVARCHAR(255),
+    Estado NVARCHAR(20) NOT NULL DEFAULT 'Activo',
+    DNIVendedor BIGINT NOT NULL,
+    CONSTRAINT FK_Productos_Usuarios FOREIGN KEY (DNIVendedor) REFERENCES Usuarios(DNI)
+);
+
+CREATE TABLE MediosDePago (
+    IdTipoPago INT PRIMARY KEY IDENTITY(1,1),
+    DNI BIGINT NOT NULL,
+    TipoPago NVARCHAR(50) NOT NULL, -- Ej: 'Visa', 'MasterCard', 'MercadoPago'
+    NumeroTarjeta NVARCHAR(20) NOT NULL,
+    Vencimiento DATE NOT NULL,
+    CONSTRAINT FK_MediosDePago_Usuarios FOREIGN KEY (DNI) REFERENCES Usuarios(DNI)
 );
 
 CREATE TABLE Carritos (
     IdCarrito INT PRIMARY KEY IDENTITY(1,1),
-    IdUsuario INT NOT NULL,
-    FechaCreacion DATETIME DEFAULT GETDATE(),
-    Activo BIT DEFAULT 1,
-    FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+    DNI BIGINT NOT NULL,
+    FechaCreacion DATE NOT NULL DEFAULT GETDATE(),
+    Activo BIT NOT NULL DEFAULT 1,
+    CONSTRAINT FK_Carritos_Usuarios FOREIGN KEY (DNI) REFERENCES Usuarios(DNI)
 );
 
 CREATE TABLE CarritoDetalle (
-    IdDetalle INT PRIMARY KEY IDENTITY(1,1),
+    IdDetalle INT IDENTITY(1,1) PRIMARY KEY,
     IdCarrito INT NOT NULL,
     IdProducto INT NOT NULL,
     Cantidad INT NOT NULL,
-    PrecioUnitario DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito),
-    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+    PrecioUnitario DECIMAL(18,2) NOT NULL,
+    CONSTRAINT FK_Carrito FOREIGN KEY (IdCarrito) REFERENCES Carritos(IdCarrito),
+    CONSTRAINT FK_Producto FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
 
 CREATE TABLE Pedidos (
     IdPedido INT PRIMARY KEY IDENTITY(1,1),
-    IdUsuario INT NOT NULL,
-    FechaPedido DATETIME DEFAULT GETDATE(),
-    Estado NVARCHAR(50) DEFAULT 'Pendiente',
-    Total DECIMAL(12,2),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+    DNI BIGINT NOT NULL,
+    FechaPedido DATE NOT NULL DEFAULT GETDATE(),
+    Estado NVARCHAR(50) NOT NULL,
+    Total DECIMAL(18,2) NOT NULL CHECK (Total >= 0),
+    CONSTRAINT FK_Pedidos_Usuarios FOREIGN KEY (DNI) REFERENCES Usuarios(DNI)
 );
-
 
 CREATE TABLE PedidoDetalle (
     IdDetalle INT PRIMARY KEY IDENTITY(1,1),
     IdPedido INT NOT NULL,
     IdProducto INT NOT NULL,
-    Cantidad INT NOT NULL,
-    PrecioUnitario DECIMAL(10,2) NOT NULL,
+    Cantidad INT NOT NULL CHECK (Cantidad > 0),
+    PrecioUnitario DECIMAL(18,2) NOT NULL CHECK (PrecioUnitario >= 0),
     Subtotal AS (Cantidad * PrecioUnitario) PERSISTED,
-    FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido),
-    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+    CONSTRAINT FK_PedidoDetalle_Pedidos FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido),
+    CONSTRAINT FK_PedidoDetalle_Productos FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
