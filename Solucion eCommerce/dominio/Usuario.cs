@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class Usuario
+    public class Usuario
     {
-        public int idUsuario { get; set; }
+        public int DNI { get; set; }
         public String nombre { get; set; }
         public String apellido { get; set; }
         public int edad { get; set; }
         public int dni { get; set; }
         public String direccion { get; set; }
-        public String fotoPerfil { get; set; }
+        public String URLFotoPerfil { get; set; }
+        public Fecha fechaRegistro { get; set; }
         public int idperfil { get; set; }
+        public String email { get; set; }
+        public String contraseña { get; set; }
     }
 }

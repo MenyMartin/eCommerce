@@ -10,11 +10,15 @@ namespace dominio
     {
         public int idProducto { get; set; }
         public String nombre { get; set; }
+        public String descripcion { get; set; }
+        public String URLFotoProducto { get; set; }
         public String marca { get; set; }
         public String tipo { get; set; }
-        public int precio { get; set; }
+        public decimal precio { get; set; }
         public int stock { get; set; }
-        public int idVendedor { get; set; }
+        public int DNIVendedor { get; set; }
+        public Fecha fechaPublicacion { get; set; }
+        public String estado { get; set; }
 
     }
 }
