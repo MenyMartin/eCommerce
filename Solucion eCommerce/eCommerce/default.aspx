@@ -11,41 +11,43 @@
             <div class="row">
 
                 <!-- Tarjeta 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow h-100">
-                        <div class="card-header text-center bg-primary text-white">
-                            Productos Destacados
-                        </div>
-                        <div class="card-body p-0">
-                            <div id="carouselCard1" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="<%= ResolveUrl("~/img/pelacables/pelacables1.png") %>" class="d-block w-100" alt="Producto 1.2" />
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="<%= ResolveUrl("~/img/pelacables/pelacables2.png") %>" class="d-block w-100" alt="Producto 1.2" />
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="<%= ResolveUrl("~/img/pelacables/pelacables3.png") %>" class="d-block w-100" alt="Producto 1.3" />
+                <asp:Repeater ID="rptProductos" runat="server" OnItemDataBound="rptProductos_ItemDataBound">
+                    <ItemTemplate>
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow h-100">
+                                <div class="card-header text-center bg-primary text-white">
+                                    <%# Eval("nombre") %>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div id='carouselCard<%# Eval("idProducto") %>' class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                                        <div class="carousel-inner">
+                                            <asp:Repeater ID="rptImagenes" runat="server">
+                                                <ItemTemplate>
+                                                    <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                                                        <img src='<%# ResolveUrl(Container.DataItem.ToString()) %>' class="d-block w-100" alt="Imagen Producto" />
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target='#carouselCard<%# Eval("idProducto") %>' data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Anterior</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target='#carouselCard<%# Eval("idProducto") %>' data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Siguiente</span>
+                                        </button>
                                     </div>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard1" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Anterior</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselCard1" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Siguiente</span>
-                                </button>
+                                <div class="card-footer text-muted text-center">
+                                    <%# Eval("marca") %>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer text-muted text-center">
-                            Pelacables Bremen
-                        </div>
-                    </div>
-                </div>
+                    </ItemTemplate>
+                </asp:Repeater>
 
-                <!-- Tarjeta 2 -->
+                <!-- Tarjeta 2 
                 <div class="col-md-4 mb-4">
                     <div class="card shadow h-100">
                         <div class="card-header text-center bg-primary text-white">
@@ -58,10 +60,10 @@
                                         <img src="<%= ResolveUrl("~/img/taladro/taladro1.png") %>" class="d-block w-100" alt="Producto 2.1" />
                                     </div>
                                     <div class="carousel-item">
-                                         <img src="<%= ResolveUrl("~/img/taladro/taladro2.png") %>" class="d-block w-100" alt="Producto 2.2" />
+                                        <img src="<%= ResolveUrl("~/img/taladro/taladro2.png") %>" class="d-block w-100" alt="Producto 2.2" />
                                     </div>
                                     <div class="carousel-item">
-                                         <img src="<%= ResolveUrl("~/img/taladro/taladro3.png") %>" class="d-block w-100" alt="Producto 2.3" />
+                                        <img src="<%= ResolveUrl("~/img/taladro/taladro3.png") %>" class="d-block w-100" alt="Producto 2.3" />
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard2" data-bs-slide="prev">
@@ -80,7 +82,7 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta 3 -->
+                <!-- Tarjeta 3
                 <div class="col-md-4 mb-4">
                     <div class="card shadow h-100">
                         <div class="card-header text-center bg-primary text-white">
@@ -89,8 +91,8 @@
                         <div class="card-body p-0">
                             <div id="carouselCard3" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                    <img src="<%= ResolveUrl("~/img/tester/tester1.png") %>" class="d-block w-100" alt="Producto 3.1" />
+                                    <div class="carousel-item active">
+                                        <img src="<%= ResolveUrl("~/img/tester/tester1.png") %>" class="d-block w-100" alt="Producto 3.1" />
 
                                     </div>
                                     <div class="carousel-item">
@@ -114,7 +116,7 @@
                             Tester Brinna
                         </div>
                     </div>
-                </div>
+                </div>-->
 
             </div>
         </div>

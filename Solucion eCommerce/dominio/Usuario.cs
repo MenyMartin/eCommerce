@@ -15,7 +15,7 @@ namespace dominio
         public int dni { get; set; }
         public String direccion { get; set; }
         public String URLFotoPerfil { get; set; }
-        public Fecha fechaRegistro { get; set; }
+        public DateTime fechaRegistro { get; set; }
         public int idperfil { get; set; }
         public String email { get; set; }
         public String contraseña { get; set; }

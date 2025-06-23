@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public class Fecha
+    public class ProductosConImagenes : Producto
     {
+        public List<string> Imagenes { get; set; }
     }
 }

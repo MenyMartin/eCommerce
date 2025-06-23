@@ -28,9 +28,6 @@ namespace negocio
                     aux.direccion = (string)datos.Lector["Direccion"];
                     aux.email = (string)datos.Lector["Email"];
                     aux.contraseña = (string)datos.Lector["Contraseña"];
-                    aux.fechaRegistro = new Fecha();
-                    aux.fechaRegistro = (Fecha)datos.Lector["FechaRegistro"];
-                    aux.URLFotoPerfil = (string)datos.Lector["URLFotoPerfil"];
                     aux.idperfil = (int)datos.Lector["IdPerfil"];
 
 

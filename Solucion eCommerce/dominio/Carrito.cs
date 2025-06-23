@@ -12,7 +12,7 @@ namespace dominio
     {
         public int IdCarrito { get; set; }
         public int idUsuario { get; set; }
-        public Fecha fechaCreacion { get; set; }
+        public DateTime fechaCreacion { get; set; }
         public bool activo { get; set; }
 
     }

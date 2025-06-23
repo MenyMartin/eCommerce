@@ -10,7 +10,7 @@ namespace dominio
     {
         public int idPedido { get; set; }
         public int idUsuario { get; set; }
-        public Fecha fechaPedido { get; set; }
+        public DateTime fechaPedido { get; set; }
         public String estado { get; set; }
         public int total { get; set; }
 
