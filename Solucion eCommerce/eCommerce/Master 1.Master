@@ -78,9 +78,9 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
             <div id="footer" class="text-center py-3 bg-light w-100"  >
-                <span>@gmail.com</span>
+                <span>eCommeny@gmail.com</span>
                 <span>Whatsapp 11-1111-1111</span>
-                <span>Instagram @</span>
+                <span>Instagram @eCommeny</span>
             </div>
         </div>
     </form>
