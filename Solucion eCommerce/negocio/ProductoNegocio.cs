@@ -149,14 +149,68 @@ namespace negocio
 
         }
 
+        public ProductosConImagenes ObtenerProductoConImg(int idProducto)
+        {
+            ProductosConImagenes producto = null;
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearConsulta("SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado FROM Productos WHERE IdProducto = @Id");
+                datos.setearParametro("@Id", idProducto);
+                datos.ejecutarLectura();
 
+                if (datos.Lector.Read())
+                {
+                    producto = new ProductosConImagenes
+                    {
+                        idProducto = (int)datos.Lector["IdProducto"],
+                        nombre = datos.Lector["Nombre"].ToString(),
+                        descripcion = datos.Lector["Descripcion"].ToString(),
+                        marca = datos.Lector["Marca"].ToString(),
+                        tipo = datos.Lector["Tipo"].ToString(),
+                        precio = (decimal)datos.Lector["Precio"],
+                        stock = (int)datos.Lector["Stock"],
+                        DNIVendedor = Convert.ToInt32(datos.Lector["DNIVendedor"]),
+                        fechaPublicacion = (DateTime)datos.Lector["FechaPublicacion"],
+                        estado = datos.Lector["Estado"].ToString(),
+                        Imagenes = new List<string>()
+                    };
+                }
+                datos.cerrarConexion();
 
+                if (producto != null)
+                {
+                    // Traigo imágenes del producto
+                    datos = new AccesoDatos();
+                    datos.setearConsulta("SELECT URLImagen FROM ProductoImagenes WHERE IdProducto = @Id ORDER BY IdImagen");
+                    datos.setearParametro("@Id", idProducto);
+                    datos.ejecutarLectura();
 
+                    while (datos.Lector.Read())
+                    {
+                        producto.Imagenes.Add(datos.Lector["URLImagen"].ToString());
+                    }
+                }
 
-
-
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
+
+
+
+
+
+
+    }
 
 
 

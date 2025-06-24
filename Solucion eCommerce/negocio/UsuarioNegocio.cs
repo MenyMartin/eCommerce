@@ -49,5 +49,43 @@ namespace negocio
 
 
         }
+
+        public Usuario ObtenerVendedor(int dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT DNI, Nombre, Apellido, URLFotoPerfil, FechaRegistro FROM Usuarios WHERE DNI = @DNI");
+                datos.setearParametro("@DNI", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Usuario vendedor = new Usuario
+                    {
+                        DNI = (int)(long)datos.Lector["DNI"],
+                        nombre = datos.Lector["Nombre"].ToString(),
+                        apellido = datos.Lector["Apellido"].ToString(),
+                        URLFotoPerfil = datos.Lector["URLFotoPerfil"].ToString(),
+                        fechaRegistro = (DateTime)datos.Lector["FechaRegistro"]
+                    };
+
+                    return vendedor;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
     }
 }
