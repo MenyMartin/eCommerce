@@ -25,7 +25,7 @@ namespace negocio
                     aux.idProducto = (int)datos.Lector["IdProducto"];
                     aux.nombre = (string)datos.Lector["Nombre"];
                     aux.marca = (string)datos.Lector["Marca"];
-                    aux.tipo = (string)datos.Lector["Tipo"];
+                    aux.tipo = (string)datos.Lector["Categoria"];
                     aux.precio = (decimal)datos.Lector["Precio"];
                     aux.stock = (int)datos.Lector["Stock"];
                     aux.descripcion = (string)datos.Lector["Descripcion"];
@@ -89,7 +89,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta(@"SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado 
+                datos.setearConsulta(@"SELECT IdProducto, Nombre, Descripcion, Marca, Categoria, Precio, Stock, DNIVendedor, FechaPublicacion, Estado 
                                       FROM Productos
                                       WHERE Estado = 'Activo'");
                 datos.ejecutarLectura();
@@ -102,7 +102,7 @@ namespace negocio
                         nombre = datos.Lector["Nombre"]?.ToString() ?? "",
                         descripcion = datos.Lector["Descripcion"]?.ToString() ?? "",
                         marca = datos.Lector["Marca"]?.ToString() ?? "",
-                        tipo = datos.Lector["Tipo"]?.ToString() ?? "",
+                        tipo = datos.Lector["Categoria"]?.ToString() ?? "",
                         precio = datos.Lector["Precio"] != DBNull.Value ? (decimal)datos.Lector["Precio"] : 0,
                         stock = datos.Lector["Stock"] != DBNull.Value ? (int)datos.Lector["Stock"] : 0,
                         DNIVendedor = datos.Lector["DNIVendedor"] != DBNull.Value ? Convert.ToInt32(datos.Lector["DNIVendedor"]) : 0,
@@ -156,7 +156,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado FROM Productos WHERE IdProducto = @Id");
+                datos.setearConsulta("SELECT IdProducto, Nombre, Descripcion, Marca, Categoria, Precio, Stock, DNIVendedor, FechaPublicacion, Estado FROM Productos WHERE IdProducto = @Id");
                 datos.setearParametro("@Id", idProducto);
                 datos.ejecutarLectura();
 
@@ -168,7 +168,7 @@ namespace negocio
                         nombre = datos.Lector["Nombre"].ToString(),
                         descripcion = datos.Lector["Descripcion"].ToString(),
                         marca = datos.Lector["Marca"].ToString(),
-                        tipo = datos.Lector["Tipo"].ToString(),
+                        tipo = datos.Lector["Categoria"].ToString(),
                         precio = (decimal)datos.Lector["Precio"],
                         stock = (int)datos.Lector["Stock"],
                         DNIVendedor = Convert.ToInt32(datos.Lector["DNIVendedor"]),

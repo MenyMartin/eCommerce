@@ -47,8 +47,8 @@
                     <asp:Label ID="lblStock" runat="server" />
                 </p>
                 <p>
-                    <strong>Tipo:</strong>
-                    <asp:Label ID="lblTipo" runat="server" />
+                    <strong>Categoría:</strong>
+                    <asp:Label ID="lblCategria" runat="server" />
                 </p>
                 <p>
                     <strong>Fecha de publicación:</strong>
