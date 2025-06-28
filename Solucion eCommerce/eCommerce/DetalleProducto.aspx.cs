@@ -28,7 +28,7 @@ namespace eCommerce
                         lblMarca.Text = productoConImg.marca;
                         lblPrecio.Text = productoConImg.precio.ToString("N2");
                         lblStock.Text = productoConImg.stock.ToString();
-                        lblCategria.Text = productoConImg.tipo;
+                        lblTipo.Text = productoConImg.tipo;
                         lblFecha.Text = productoConImg.fechaPublicacion.ToShortDateString();
                         lblDescripcion.Text = productoConImg.descripcion;
 

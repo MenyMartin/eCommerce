@@ -48,7 +48,7 @@
                 </p>
                 <p>
                     <strong>Categoría:</strong>
-                    <asp:Label ID="lblCategria" runat="server" />
+                    <asp:Label ID="lblTipo" runat="server" />
                 </p>
                 <p>
                     <strong>Fecha de publicación:</strong>
