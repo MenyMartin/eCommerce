@@ -11,16 +11,16 @@ namespace eCommerce
 {
 
 
-    public partial class Ofertas
+    public partial class Ventas
     {
 
         /// <summary>
-        /// Control rptOfertas.
+        /// Control btnAlta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptOfertas;
+        protected global::System.Web.UI.WebControls.Button btnAlta;
     }
 }

@@ -111,7 +111,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="styles\logIn .css" />
     <Content Include="styles\master.css" />
-    <Content Include="Vender.aspx" />
+    <Content Include="AltaProducto.aspx" />
+    <Content Include="Ventas.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -172,12 +173,19 @@
     <Compile Include="Master 1.Master.designer.cs">
       <DependentUpon>Master 1.Master</DependentUpon>
     </Compile>
-    <Compile Include="Vender.aspx.cs">
-      <DependentUpon>Vender.aspx</DependentUpon>
+    <Compile Include="AltaProducto.aspx.cs">
+      <DependentUpon>AltaProducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vender.aspx.designer.cs">
-      <DependentUpon>Vender.aspx</DependentUpon>
+    <Compile Include="AltaProducto.aspx.designer.cs">
+      <DependentUpon>AltaProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas.aspx.cs">
+      <DependentUpon>Ventas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas.aspx.designer.cs">
+      <DependentUpon>Ventas.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

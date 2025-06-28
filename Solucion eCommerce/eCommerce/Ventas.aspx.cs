@@ -7,11 +7,19 @@ using System.Web.UI.WebControls;
 
 namespace eCommerce
 {
-    public partial class Vender : System.Web.UI.Page
+    public partial class Ventas : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
+
+        protected void btnAlta_Click(object sender, EventArgs e)
+        {
+            
+            Response.Redirect("AltaProducto.aspx");
+        }
+
+       
     }
 }

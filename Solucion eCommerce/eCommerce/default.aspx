@@ -14,8 +14,8 @@
                 <asp:Repeater ID="rptProductos" runat="server" OnItemDataBound="rptProductos_ItemDataBound">
                     <ItemTemplate>
                         <div class="col-md-4 mb-4">
-                            <a href='<%# "DetalleProducto.aspx?id=" + Eval("idProducto") %>' style="text-decoration: none; color: inherit;">
-                                <div class="card shadow h-100">
+                            <div class="card shadow h-100">
+                                <a href='<%# "DetalleProducto.aspx?id=" + Eval("idProducto") %>' style="text-decoration: none; color: inherit;">
                                     <div class="card-header text-center bg-primary text-white">
                                         <%# Eval("nombre") + " - " + Eval("marca") %>
                                     </div>
@@ -40,11 +40,16 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="card-footer text-muted text-center">
-                                        <%# "$" + Eval("precio") %>
-                                    </div>
+                                </a>
+                                <div class="card-footer text-muted text-center">
+                                    <%# Eval("Descuento") != DBNull.Value && Convert.ToInt32(Eval("Descuento")) > 0 
+                          ? "<span class='text-decoration-line-through me-2'>$" + Eval("precio") + "</span>" +
+                            "<span class='text-success fw-bold'>$" + 
+                            (Convert.ToDecimal(Eval("precio")) * (1 - Convert.ToInt32(Eval("Descuento")) / 100.0m)).ToString("0.00") + "</span>" +
+                            "<br /><span class='badge bg-danger mt-1'>" + Eval("Descuento") + "% OFF</span>"
+                          : "$" + Eval("precio") %>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>

@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master 1.Master" AutoEventWireup="true" CodeBehind="Vender.aspx.cs" Inherits="eCommerce.Vender" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master 1.Master" AutoEventWireup="true" CodeBehind="AltaProducto.aspx.cs" Inherits="eCommerce.Vender" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -29,14 +30,34 @@
                     <asp:FileUpload ID="fuFoto1" runat="server" CssClass="form-control mb-2" />
                     <asp:FileUpload ID="fuFoto2" runat="server" CssClass="form-control mb-2" />
                     <asp:FileUpload ID="fuFoto3" runat="server" CssClass="form-control mb-2" />
+
+                    <div id="contenedorFotosExtras"></div>
+
+                    <button type="button" id="btnAgregarFoto" class="btn btn-sm btn-outline-primary mt-2">+ Agregar otra foto</button>
                 </div>
 
-                <div class="text-center">
-                    <asp:Button Text="Guardar" runat="server" />
-                </div>
+                <script>
+                    document.getElementById('btnAgregarFoto').addEventListener('click', function () {
+                        const contenedor = document.getElementById('contenedorFotosExtras');
 
-                <asp:Label ID="lblResultado" runat="server" CssClass="text-success mt-3 d-block text-center" Visible="false" />
+                        // Crear nuevo input tipo file para poder seguir agregando fotos
+                        const nuevoInput = document.createElement('input');
+                        nuevoInput.type = 'file';
+                        nuevoInput.name = 'fotosExtra'; // mismo name para que llegue como colección
+                        nuevoInput.className = 'form-control mb-2';
+
+                        contenedor.appendChild(nuevoInput);
+                    });
+                </script>
+
             </div>
+
+            <div class="text-center">
+                <asp:Button Text="Guardar" runat="server" />
+            </div>
+
+            <asp:Label ID="lblResultado" runat="server" CssClass="text-success mt-3 d-block text-center" Visible="false" />
         </div>
+    </div>
     </div>
 </asp:Content>

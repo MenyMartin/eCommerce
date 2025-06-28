@@ -41,7 +41,10 @@
                     <asp:Label ID="lblNombre" runat="server" /></h2>
                 <h4 class="text-muted">
                     <asp:Label ID="lblMarca" runat="server" /></h4>
-                <h3 class="text-success mb-3">$<asp:Label ID="lblPrecio" runat="server" /></h3>
+                <h3 class="mb-3">
+                    <asp:Label ID="lblPrecioTachado" runat="server" CssClass="text-muted text-decoration-line-through me-2" Visible="false" />
+                    <asp:Label ID="lblPrecioConDescuento" runat="server" CssClass="text-success fw-bold" />
+                </h3>
                 <p>
                     <strong>Stock:</strong>
                     <asp:Label ID="lblStock" runat="server" />

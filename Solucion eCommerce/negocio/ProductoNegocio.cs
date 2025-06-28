@@ -31,6 +31,7 @@ namespace negocio
                     aux.descripcion = (string)datos.Lector["Descripcion"];
                     aux.estado = (string)datos.Lector["Estado"];
                     aux.DNIVendedor = (int)datos.Lector["DNIVendedor"];
+                    aux.descuento = datos.Lector["Descuento"] != DBNull.Value ? (int)datos.Lector["Descuento"] : 0;
 
 
                     lista.Add(aux);
@@ -89,7 +90,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta(@"SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado 
+                datos.setearConsulta(@"SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado, Descuento 
                                       FROM Productos
                                       WHERE Estado = 'Activo'");
                 datos.ejecutarLectura();
@@ -108,6 +109,7 @@ namespace negocio
                         DNIVendedor = datos.Lector["DNIVendedor"] != DBNull.Value ? Convert.ToInt32(datos.Lector["DNIVendedor"]) : 0,
                         fechaPublicacion = datos.Lector["FechaPublicacion"] != DBNull.Value ? (DateTime)datos.Lector["FechaPublicacion"] : DateTime.MinValue,
                         estado = datos.Lector["Estado"]?.ToString() ?? "",
+                        descuento = datos.Lector["Descuento"] != DBNull.Value ? (int)datos.Lector["Descuento"] : 0,
                     };
 
                     productosConImg.Add(producto);
@@ -156,7 +158,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado FROM Productos WHERE IdProducto = @Id");
+                datos.setearConsulta("SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado, Descuento FROM Productos WHERE IdProducto = @Id");
                 datos.setearParametro("@Id", idProducto);
                 datos.ejecutarLectura();
 
@@ -174,6 +176,7 @@ namespace negocio
                         DNIVendedor = Convert.ToInt32(datos.Lector["DNIVendedor"]),
                         fechaPublicacion = (DateTime)datos.Lector["FechaPublicacion"],
                         estado = datos.Lector["Estado"].ToString(),
+                        descuento = datos.Lector["Descuento"] != DBNull.Value ? (int)datos.Lector["Descuento"] : 0,
                         Imagenes = new List<string>()
                     };
                 }

@@ -18,6 +18,7 @@ namespace dominio
         public int DNIVendedor { get; set; }
         public DateTime fechaPublicacion { get; set; }
         public String estado { get; set; }
+        public int descuento { get; set; }
 
     }
 }

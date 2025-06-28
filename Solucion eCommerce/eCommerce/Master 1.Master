@@ -47,7 +47,7 @@
                                 <a class="nav-link" href="Ofertas.aspx">Ofertas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="Vender.aspx">Vender</a>
+                                <a class="nav-link" href="Ventas.aspx">Ventas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="Contacto.aspx">Contacto</a>

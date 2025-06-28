@@ -42,13 +42,22 @@ namespace eCommerce
         protected global::System.Web.UI.WebControls.Label lblMarca;
 
         /// <summary>
-        /// Control lblPrecio.
+        /// Control lblPrecioTachado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrecio;
+        protected global::System.Web.UI.WebControls.Label lblPrecioTachado;
+
+        /// <summary>
+        /// Control lblPrecioConDescuento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrecioConDescuento;
 
         /// <summary>
         /// Control lblStock.

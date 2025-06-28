@@ -24,13 +24,29 @@ namespace eCommerce
 
                     if (productoConImg != null)
                     {
-                        lblNombre.Text = productoConImg.nombre;
-                        lblMarca.Text = productoConImg.marca;
-                        lblPrecio.Text = productoConImg.precio.ToString("N2");
-                        lblStock.Text = productoConImg.stock.ToString();
-                        lblTipo.Text = productoConImg.tipo;
-                        lblFecha.Text = productoConImg.fechaPublicacion.ToShortDateString();
-                        lblDescripcion.Text = productoConImg.descripcion;
+                        int id = Convert.ToInt32(Request.QueryString["id"]);
+                        ProductoNegocio negocio = new ProductoNegocio();
+                        ProductosConImagenes producto = negocio.ObtenerProductoConImg(id);
+
+                        lblNombre.Text = producto.nombre;
+                        lblMarca.Text = producto.marca;
+                        lblStock.Text = producto.stock.ToString();
+                        lblTipo.Text = producto.tipo;
+                        lblFecha.Text = producto.fechaPublicacion.ToShortDateString();
+                        lblDescripcion.Text = producto.descripcion;
+
+                        if (producto.descuento > 0)
+                        {
+                            lblPrecioTachado.Text = "$" + producto.precio.ToString("0.00");
+                            lblPrecioTachado.Visible = true;
+
+                            decimal precioConDescuento = producto.precio * (1 - producto.descuento / 100.0m);
+                            lblPrecioConDescuento.Text = "$" + precioConDescuento.ToString("0.00");
+                        }
+                        else
+                        {
+                            lblPrecioConDescuento.Text = "$" + producto.precio.ToString("0.00");
+                        }
 
                         rptImagenes.DataSource = productoConImg.Imagenes;
                         rptImagenes.DataBind();
