@@ -236,7 +236,51 @@ namespace negocio
             }
         }
 
+        public void AgregarProductoConImagenes(Producto producto, List<string> urlsImagenes)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                // Insertar el producto
+                datos.setearConsulta(@"INSERT INTO Productos (Nombre, Marca, Tipo, Precio, Stock, Descripcion, Estado, DNIVendedor, Descuento, FechaPublicacion)
+                               OUTPUT INSERTED.IdProducto
+                               VALUES (@Nombre, @Marca, @Tipo, @Precio, @Stock, @Descripcion, @Estado, @DNIVendedor, @Descuento, @Fecha)");
+
+                datos.setearParametro("@Nombre", producto.nombre);
+                datos.setearParametro("@Marca", producto.marca);
+                datos.setearParametro("@Tipo", producto.tipo);
+                datos.setearParametro("@Precio", producto.precio);
+                datos.setearParametro("@Stock", producto.stock);
+                datos.setearParametro("@Descripcion", producto.descripcion);
+                datos.setearParametro("@Estado", producto.estado ?? "Activo");
+                datos.setearParametro("@DNIVendedor", producto.DNIVendedor);
+                datos.setearParametro("@Descuento", producto.descuento);
+                datos.setearParametro("@Fecha", producto.fechaPublicacion == DateTime.MinValue ? DateTime.Now : producto.fechaPublicacion);
+
+                datos.setearConsulta("SELECT SCOPE_IDENTITY()"); // para obtener último ID insertado
+                object idNuevo = datos.ejecutarScalar();
+                int id = Convert.ToInt32(idNuevo);
+
+                // Insertar las imágenes asociadas
+                foreach (string url in urlsImagenes)
+                {
+                    datos.limpiarParametros();
+                    datos.setearConsulta("INSERT INTO ProductoImagenes (IdProducto, URLImagen) VALUES (@IdProducto, @URLImagen)");
+                    datos.setearParametro("@IdProducto", id);
+                    datos.setearParametro("@URLImagen", url);
+                    datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 

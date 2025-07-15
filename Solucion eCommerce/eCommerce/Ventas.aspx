@@ -4,11 +4,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="container mt-5">
-        <h2 class="mb-4 text-center">Administración de Productos</h2>
+        <h2 class="mb-4 text-center">Administración de ventas</h2>
 
         <div class="d-flex justify-content-center gap-3">
 
-            <asp:Button ID="btnAlta" runat="server" Text="Dar de alta un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
+            <asp:Button ID="btnAlta" runat="server" Text="Vender un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
             
         </div>
 
