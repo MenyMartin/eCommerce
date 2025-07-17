@@ -18,7 +18,7 @@ namespace eCommerce
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Habilitar jQuery para validaciones unobtrusive
+            // jQuery para validaciones unobtrusive
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
                 new ScriptResourceDefinition
                 {
@@ -31,14 +31,14 @@ namespace eCommerce
             Page.UnobtrusiveValidationMode = UnobtrusiveValidationMode.WebForms;
         }
 
-        // Validación del lado servidor para asegurar al menos una URL
+        // valida que haya al menos una imagen en url
         protected void valFotos_ServerValidate(object source, ServerValidateEventArgs args)
         {
             bool tieneAlMenosUna = !string.IsNullOrWhiteSpace(txtFoto1.Text) ||
                                    !string.IsNullOrWhiteSpace(txtFoto2.Text) ||
                                    !string.IsNullOrWhiteSpace(txtFoto3.Text);
 
-            // Además revisa los inputs dinámicos
+            
             foreach (string key in Request.Form.Keys)
             {
                 if (key.StartsWith("fotoExtra"))
@@ -60,7 +60,7 @@ namespace eCommerce
             if (!Page.IsValid)
                 return;
 
-            // Validar usuario en sesión
+            
             if (Session["usuario"] == null)
             {
                 Response.Redirect("Login.aspx");
@@ -69,14 +69,14 @@ namespace eCommerce
 
             Usuario usuario = (Usuario)Session["usuario"];
 
-            // Recolectar todas las URLs de imágenes
+            
             List<string> urlsImagenes = new List<string>();
 
             if (!string.IsNullOrWhiteSpace(txtFoto1.Text)) urlsImagenes.Add(txtFoto1.Text);
             if (!string.IsNullOrWhiteSpace(txtFoto2.Text)) urlsImagenes.Add(txtFoto2.Text);
             if (!string.IsNullOrWhiteSpace(txtFoto3.Text)) urlsImagenes.Add(txtFoto3.Text);
 
-            // Agregar las URLs de los campos dinámicos
+            
             foreach (string key in Request.Form.Keys)
             {
                 if (key.StartsWith("fotoExtra"))
@@ -97,12 +97,12 @@ namespace eCommerce
                 stock = Convert.ToInt32(txtStock.Text.Trim()),
                 descripcion = txtDescripcion.Text.Trim(),
                 estado = "Activo",
-                DNIVendedor = usuario.dni,
+                DNIVendedor = usuario.DNI,
                 descuento = string.IsNullOrEmpty(txtDescuento.Text) ? 0 : Convert.ToInt32(txtDescuento.Text),
                 fechaPublicacion = DateTime.Now
             };
 
-            // Guardar en base de datos
+            
             ProductoNegocio negocio = new ProductoNegocio();
             negocio.AgregarProductoConImagenes(producto, urlsImagenes);
 

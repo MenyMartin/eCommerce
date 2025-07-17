@@ -51,7 +51,7 @@ namespace eCommerce
                 }
                 else
                 {
-                    // En caso de no tener imágenes, usar una imagen por defecto
+                    // imagen por defecto
                     rptImagenes.DataSource = new List<string> { "~/img/sin-imagen.jpg" };
                 }
 

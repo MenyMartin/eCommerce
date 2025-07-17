@@ -184,7 +184,7 @@ namespace negocio
 
                 if (producto != null)
                 {
-                    // Traigo imágenes del producto
+                    // Traigo las imágenes del producto
                     datos = new AccesoDatos();
                     datos.setearConsulta("SELECT URLImagen FROM ProductoImagenes WHERE IdProducto = @Id ORDER BY IdImagen");
                     datos.setearParametro("@Id", idProducto);
@@ -241,8 +241,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {
-                // Insertar el producto
+            {                
                 datos.setearConsulta(@"INSERT INTO Productos (Nombre, Marca, Tipo, Precio, Stock, Descripcion, Estado, DNIVendedor, Descuento, FechaPublicacion)
                                OUTPUT INSERTED.IdProducto
                                VALUES (@Nombre, @Marca, @Tipo, @Precio, @Stock, @Descripcion, @Estado, @DNIVendedor, @Descuento, @Fecha)");
@@ -258,11 +257,11 @@ namespace negocio
                 datos.setearParametro("@Descuento", producto.descuento);
                 datos.setearParametro("@Fecha", producto.fechaPublicacion == DateTime.MinValue ? DateTime.Now : producto.fechaPublicacion);
 
-                datos.setearConsulta("SELECT SCOPE_IDENTITY()"); // para obtener último ID insertado
+                datos.setearConsulta("SELECT SCOPE_IDENTITY()"); // obtiene ultimo ID
                 object idNuevo = datos.ejecutarScalar();
                 int id = Convert.ToInt32(idNuevo);
 
-                // Insertar las imágenes asociadas
+                
                 foreach (string url in urlsImagenes)
                 {
                     datos.limpiarParametros();

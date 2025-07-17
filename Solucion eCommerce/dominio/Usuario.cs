@@ -11,12 +11,11 @@ namespace dominio
         public int DNI { get; set; }
         public String nombre { get; set; }
         public String apellido { get; set; }
-        public int edad { get; set; }
-        public int dni { get; set; }
+        public int edad { get; set; }        
         public String direccion { get; set; }
         public String URLFotoPerfil { get; set; }
         public DateTime fechaRegistro { get; set; }
-        public int idperfil { get; set; }
+        public Perfil idPerfil { get; set; }
         public String email { get; set; }
         public String contraseña { get; set; }
     }
