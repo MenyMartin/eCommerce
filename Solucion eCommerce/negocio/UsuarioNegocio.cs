@@ -164,5 +164,47 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Usuario login(string email, string contraseña)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT * FROM Usuarios WHERE Email = @Email AND Contraseña = @Contraseña");
+                datos.setearParametro("@Email", email);
+                datos.setearParametro("@Contraseña", contraseña);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.DNI = (int)datos.Lector["DNI"];
+                    usuario.nombre = (string)datos.Lector["Nombre"];
+                    usuario.apellido = (string)datos.Lector["Apellido"];
+                    usuario.edad = (int)datos.Lector["Edad"];
+                    usuario.direccion = (string)datos.Lector["Direccion"];
+                    usuario.URLFotoPerfil = (string)datos.Lector["URLFotoPerfil"];
+                    usuario.fechaRegistro = (DateTime)datos.Lector["FechaRegistro"];
+                    usuario.email = (string)datos.Lector["Email"];
+                    usuario.contraseña = (string)datos.Lector["Contraseña"];
+
+                    
+                    usuario.idPerfil = new Perfil();
+                    usuario.idPerfil.idPerfil = (int)datos.Lector["IdPerfil"];
+
+                    return usuario;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

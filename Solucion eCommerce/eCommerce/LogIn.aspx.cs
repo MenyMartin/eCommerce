@@ -122,5 +122,26 @@ namespace eCommerce
         {
             pnlRegistro.Visible = false;
         }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            string email = txtUsuario.Text.Trim();
+            string clave = txtClave.Text.Trim();
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            Usuario usuario = negocio.login(email, clave);
+
+            if (usuario != null)
+            {
+                Session["usuario"] = usuario;
+                Response.Redirect("Default.aspx");
+            }
+            else
+            {
+                lblMensaje.Text = "Usuario o contraseña incorrectos.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
+            }
+        }
     }
 }

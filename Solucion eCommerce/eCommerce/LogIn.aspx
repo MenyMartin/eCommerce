@@ -25,7 +25,7 @@
                     <asp:TextBox ID="txtClave" runat="server" CssClass="form-control form-control-sm w-25 mx-auto mb-2" TextMode="Password" />
                 </div>
 
-                <asp:Button ID="btnLogin" Text="LogIn" runat="server" CssClass="btn btn-primary" />
+                <asp:Button ID="btnLogin" Text="LogIn" runat="server" CssClass="btn btn-primary" OnClick="btnLogin_Click" />
             </div>
         </div>
 

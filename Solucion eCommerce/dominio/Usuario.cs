@@ -8,7 +8,7 @@ namespace dominio
 {
     public class Usuario
     {
-        public int DNI { get; set; }
+        public long DNI { get; set; }
         public String nombre { get; set; }
         public String apellido { get; set; }
         public int edad { get; set; }        
