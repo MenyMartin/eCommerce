@@ -52,7 +52,7 @@ namespace negocio
 
         }
 
-        public Usuario ObtenerVendedor(int dni)
+        public Usuario ObtenerVendedor(long dni)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -178,7 +178,7 @@ namespace negocio
                 if (datos.Lector.Read())
                 {
                     Usuario usuario = new Usuario();
-                    usuario.DNI = (int)datos.Lector["DNI"];
+                    usuario.DNI = (long)datos.Lector["DNI"];
                     usuario.nombre = (string)datos.Lector["Nombre"];
                     usuario.apellido = (string)datos.Lector["Apellido"];
                     usuario.edad = (int)datos.Lector["Edad"];

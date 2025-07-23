@@ -102,6 +102,7 @@
     <Content Include="img\tester\tester2.png" />
     <Content Include="img\tester\tester3.png" />
     <Content Include="LogIn.aspx" />
+    <Content Include="MiPerfil.aspx" />
     <Content Include="Ofertas.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -157,6 +158,13 @@
     </Compile>
     <Compile Include="LogIn.aspx.designer.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ofertas.aspx.cs">
       <DependentUpon>Ofertas.aspx</DependentUpon>

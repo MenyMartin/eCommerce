@@ -13,7 +13,13 @@ namespace eCommerce
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Session["usuario"] != null)
+                {
+                    Response.Redirect("MiPerfil.aspx");
+                }
+            }
         }
 
         protected void btnRegistrarse_Click(object sender, EventArgs e)

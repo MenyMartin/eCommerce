@@ -15,7 +15,7 @@ namespace dominio
         public String tipo { get; set; }
         public decimal precio { get; set; }
         public int stock { get; set; }
-        public int DNIVendedor { get; set; }
+        public long DNIVendedor { get; set; }
         public DateTime fechaPublicacion { get; set; }
         public String estado { get; set; }
         public int descuento { get; set; }
