@@ -156,7 +156,6 @@
     </Compile>
     <Compile Include="EdicionProducto.aspx.cs">
       <DependentUpon>EdicionProducto.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EdicionProducto.aspx.designer.cs">
       <DependentUpon>EdicionProducto.aspx</DependentUpon>

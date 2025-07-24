@@ -58,16 +58,17 @@ namespace eCommerce
 
         protected void btnEliminarImagen_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(urlImagenAEliminar))
+            Button btn = (Button)sender;
+            string urlImagen = btn.CommandArgument;
+
+            if (!string.IsNullOrEmpty(urlImagen))
             {
                 int idProducto = Convert.ToInt32(Request.QueryString["id"]);
 
-
                 ProductoNegocio negocio = new ProductoNegocio();
-                negocio.EliminarImagenProducto(idProducto, urlImagenAEliminar);
+                negocio.EliminarImagenProducto(idProducto, urlImagen);
 
-
-                Response.Redirect(Request.RawUrl);
+                Response.Redirect(Request.RawUrl); // Recarga la página para ver los cambios
             }
         }
 
