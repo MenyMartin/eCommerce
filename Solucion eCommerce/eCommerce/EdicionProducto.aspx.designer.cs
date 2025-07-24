@@ -168,15 +168,6 @@ namespace eCommerce
         protected global::System.Web.UI.WebControls.TextBox txtFoto1;
 
         /// <summary>
-        /// Control valFoto1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator valFoto1;
-
-        /// <summary>
         /// Control txtFoto2.
         /// </summary>
         /// <remarks>

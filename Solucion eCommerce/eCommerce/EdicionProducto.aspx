@@ -71,13 +71,7 @@
                 <div class="mb-3">
                     <label class="form-label">URLs de imágenes del producto</label><br />
 
-                    <asp:TextBox ID="txtFoto1" runat="server" CssClass="form-control mb-2" placeholder="Nuevo url imagen" />
-                    <asp:RequiredFieldValidator ID="valFoto1" runat="server"
-                        ControlToValidate="txtFoto1"
-                        ErrorMessage="Debe ingresar al menos una URL de imagen"
-                        CssClass="text-danger"
-                        Display="Dynamic" />
-
+                    <asp:TextBox ID="txtFoto1" runat="server" CssClass="form-control mb-2" placeholder="Nuevo url imagen" />                 
                     <asp:TextBox ID="txtFoto2" runat="server" CssClass="form-control mb-2" placeholder="Nuevo url imagen" />
                     <asp:TextBox ID="txtFoto3" runat="server" CssClass="form-control mb-2" placeholder="Nuevo url imagen" />
 
