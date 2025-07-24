@@ -24,8 +24,8 @@
                     <div class="col-md-4 mb-4">
                         <div class="card shadow h-100">
                             <a href='<%# "DetalleProducto.aspx?id=" + Eval("idProducto") %>' style="text-decoration: none; color: inherit;">
-                                <div class="card-header text-center bg-primary text-white">
-                                    <%# Eval("nombre") + " - " + Eval("marca") %>
+                                <div class='<%# "card-header text-center text-white " + (Eval("estado").ToString() == "Inactivo" ? "bg-danger" : "bg-primary") %>'>
+                                    <%# Eval("nombre") + " - " + Eval("marca") + " (" + Eval("estado") + ")" %>
                                 </div>
                                 <div class="card-body p-0">
                                     <div id='carouselCard<%# Eval("idProducto") %>' class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
@@ -59,7 +59,8 @@
 
                                 <div class="mt-2 d-flex justify-content-center gap-2">
                                     <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar" CommandArgument='<%# Eval("idProducto") %>' CssClass="btn btn-warning btn-sm" OnCommand="btnModificar_Command" />
-                                    <asp:Button ID="btnBaja" runat="server" Text="Dar de baja" CssClass="btn btn-danger btn-sm" />
+                                    <asp:Button ID="btnBaja" runat="server" Text="Dar de baja" CommandName="DarDeBaja" CommandArgument='<%# Eval("idProducto") %>' CssClass="btn btn-danger btn-sm" OnCommand="btnBaja_Command" />
+                                    <asp:Button ID="btnAlta" runat="server" Text="Dar de alta" CommandName="DarDeAlta" CommandArgument='<%# Eval("idProducto") %>' CssClass="btn btn-success btn-sm" OnCommand="btnAlta_Command" Visible="false" />
                                 </div>
                             </div>
                         </div>

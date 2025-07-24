@@ -57,8 +57,60 @@ namespace eCommerce
                 rptImagenes.DataSource = producto.Imagenes;
                 rptImagenes.DataBind();
             }
+
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                dynamic producto = e.Item.DataItem;
+                string estado = Convert.ToString(producto.estado);
+
+                Button btnBaja = (Button)e.Item.FindControl("btnBaja");
+                Button btnAlta = (Button)e.Item.FindControl("btnAlta");
+
+                if (estado == "Inactivo")
+                {
+                    btnBaja.Visible = false;
+                    btnAlta.Visible = true;
+                }
+                else
+                {
+                    btnBaja.Visible = true;
+                    btnAlta.Visible = false;
+                }
+            }
         }
 
+        protected void btnBaja_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                int idProducto = Convert.ToInt32(e.CommandArgument);
+                ProductoNegocio negocio = new ProductoNegocio();
 
+                negocio.DarDeBajaProducto(idProducto);
+                
+                Response.Redirect("Ventas.aspx");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("Error al dar de baja el producto: " + ex.Message);
+            }
+        }
+
+        protected void btnAlta_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                int idProducto = Convert.ToInt32(e.CommandArgument);
+                ProductoNegocio negocio = new ProductoNegocio();
+
+                negocio.ActivarProducto(idProducto);
+
+                Response.Redirect("Ventas.aspx");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("Error al dar de alta el producto: " + ex.Message);
+            }
+        }
     }
 }

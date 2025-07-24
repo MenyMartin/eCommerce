@@ -429,7 +429,40 @@ namespace negocio
             }
         }
 
+        public void DarDeBajaProducto(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearConsulta("UPDATE Productos SET Estado = 'Inactivo' WHERE IdProducto = @id");
+                datos.setearParametro("@id", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ActivarProducto(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE Productos SET estado = 'Activo' WHERE idProducto = @id");
+                datos.setearParametro("@id", idProducto);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }
