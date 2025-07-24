@@ -19,6 +19,7 @@ namespace eCommerce
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             if (!IsPostBack)
             {
 
@@ -68,10 +69,66 @@ namespace eCommerce
                 ProductoNegocio negocio = new ProductoNegocio();
                 negocio.EliminarImagenProducto(idProducto, urlImagen);
 
-                Response.Redirect(Request.RawUrl); // Recarga la página para ver los cambios
+                Response.Redirect(Request.RawUrl);
             }
         }
 
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int idProducto = Convert.ToInt32(Request.QueryString["id"]);
 
+                Producto producto = new Producto();
+                producto.idProducto = idProducto;
+                producto.nombre = txtNombre.Text.Trim();
+                producto.marca = txtMarca.Text.Trim();
+                producto.tipo = txtTipo.Text.Trim();
+                producto.precio = decimal.Parse(txtPrecio.Text.Trim());
+                producto.stock = int.Parse(txtStock.Text.Trim());
+                producto.descripcion = txtDescripcion.Text.Trim();
+                producto.descuento = int.Parse(txtDescuento.Text.Trim());
+
+                ProductoNegocio negocio = new ProductoNegocio();
+
+                
+                negocio.ActualizarProducto(producto);
+
+
+                List<string> nuevasImagenes = new List<string>();
+
+                
+                if (!string.IsNullOrWhiteSpace(txtFoto1.Text))
+                    nuevasImagenes.Add(txtFoto1.Text.Trim());
+                if (!string.IsNullOrWhiteSpace(txtFoto2.Text))
+                    nuevasImagenes.Add(txtFoto2.Text.Trim());
+                if (!string.IsNullOrWhiteSpace(txtFoto3.Text))
+                    nuevasImagenes.Add(txtFoto3.Text.Trim());
+
+                
+                foreach (string clave in Request.Form.AllKeys)
+                {
+                    if (clave.StartsWith("fotoExtra"))
+                    {
+                        string urlExtra = Request.Form[clave];
+                        if (!string.IsNullOrWhiteSpace(urlExtra))
+                            nuevasImagenes.Add(urlExtra.Trim());
+                    }
+                }
+
+                if (nuevasImagenes.Count > 0)
+                {
+                    negocio.AgregarImagenesProducto(idProducto, nuevasImagenes);
+                }
+
+
+                Response.Redirect("EdicionProducto.aspx?id=" + idProducto);
+            }
+            catch (Exception ex)
+            {
+                
+                Response.Write("Error al actualizar: " + ex.Message);
+            }
+        }
     }
 }
