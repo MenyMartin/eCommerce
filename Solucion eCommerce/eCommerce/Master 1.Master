@@ -54,10 +54,10 @@
                             </li>
                         </ul>
 
-                        <form class="d-flex me-3" role="search">
-                            <input class="form-control form-control-sm me-2" type="search" placeholder="Buscar" aria-label="Buscar" style="max-width: 200px;">
-                            <button class="btn btn-outline-success btn-sm" type="submit">Buscar</button>
-                        </form>
+                        <asp:Panel CssClass="d-flex me-3" role="search" runat="server">
+                            <asp:TextBox ID="txtBuscar" CssClass="form-control form-control-sm me-2" placeholder="Buscar" runat="server" />
+                            <asp:Button ID="btnBuscar" Text="Buscar" CssClass="btn btn-outline-success btn-sm" runat="server" OnClick="btnBuscar_Click" />
+                        </asp:Panel>
 
                         <a href="Carrito.aspx" class="btn position-relative me-3">
                             <i class="bi bi-cart-fill fs-5"></i>
@@ -67,7 +67,7 @@
                         </a>
 
                         <a href="Login.aspx" class="d-flex align-items-center">
-                            <img src="<%= ResolveUrl("~/img/usuario.jpg") %>" alt="Usuario" class="rounded-circle" width="32" height="32" />
+                            <img id="imgUsuario" runat="server" alt="Usuario" class="rounded-circle" width="32" height="32" />
                         </a>
                     </div>
                 </div>

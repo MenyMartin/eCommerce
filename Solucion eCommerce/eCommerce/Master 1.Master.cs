@@ -25,7 +25,27 @@ namespace eCommerce
 
                 rptCategorias.DataSource = tiposUnicos;
                 rptCategorias.DataBind();
+
+
+                var usuario = Session["usuario"] as dominio.Usuario;
+
+                if (usuario != null && !string.IsNullOrEmpty(usuario.URLFotoPerfil))
+                {
+                    
+                    imgUsuario.Src = ResolveUrl(usuario.URLFotoPerfil);
+                }
+                else
+                {
+                    
+                    imgUsuario.Src = ResolveUrl("~/img/sin-imagen.png");
+                }
+
             }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+        
         }
     }
 }
