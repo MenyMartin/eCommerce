@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-center gap-3">
 
             <asp:Button ID="btnAlta" runat="server" Text="Vender un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
-            
+
         </div>
 
     </div>
@@ -56,6 +56,11 @@
                                           (Convert.ToDecimal(Eval("precio")) * (1 - Convert.ToInt32(Eval("Descuento")) / 100.0m)).ToString("0.00") + "</span>" +
                                           "<br /><span class='badge bg-danger mt-1'>" + Eval("Descuento") + "% OFF</span>"
                                         : "$" + Eval("precio") %>
+
+                                <div class="mt-2 d-flex justify-content-center gap-2">
+                                    <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar" CommandArgument='<%# Eval("idProducto") %>' CssClass="btn btn-warning btn-sm" OnCommand="btnModificar_Command" />
+                                    <asp:Button ID="btnBaja" runat="server" Text="Dar de baja" CssClass="btn btn-danger btn-sm" />
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -86,6 +86,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="default.aspx" />
     <Content Include="DetalleProducto.aspx" />
+    <Content Include="EdicionProducto.aspx" />
     <Content Include="img\pelacables\pelacables1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -152,6 +153,13 @@
     </Compile>
     <Compile Include="DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EdicionProducto.aspx.cs">
+      <DependentUpon>EdicionProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EdicionProducto.aspx.designer.cs">
+      <DependentUpon>EdicionProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="LogIn.aspx.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>

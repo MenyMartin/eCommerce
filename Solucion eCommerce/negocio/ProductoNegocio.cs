@@ -135,7 +135,7 @@ namespace negocio
                 }
 
                 return productosConImg;
-            
+
             }
             catch (Exception ex)
             {
@@ -241,7 +241,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {                
+            {
                 datos.setearConsulta(@"INSERT INTO Productos (Nombre, Marca, Tipo, Precio, Stock, Descripcion, Estado, DNIVendedor, Descuento, FechaPublicacion)
                                OUTPUT INSERTED.IdProducto
                                VALUES (@Nombre, @Marca, @Tipo, @Precio, @Stock, @Descripcion, @Estado, @DNIVendedor, @Descuento, @Fecha)");
@@ -261,7 +261,7 @@ namespace negocio
                 object idNuevo = datos.ejecutarScalar();
                 int id = Convert.ToInt32(idNuevo);
 
-                
+
                 foreach (string url in urlsImagenes)
                 {
                     datos.limpiarParametros();
@@ -346,12 +346,32 @@ namespace negocio
             }
         }
 
+        public void EliminarImagenProducto(int idProducto, string urlImagen)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("DELETE FROM ProductoImagenes WHERE IdProducto = @IdProducto AND URLImagen = @UrlImagen");
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.setearParametro("@UrlImagen", urlImagen);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+
+
+
+
     }
-
-
-
-
-
-
-
 }

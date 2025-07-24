@@ -37,14 +37,14 @@ namespace eCommerce
             Response.Redirect("AltaProducto.aspx");
         }
 
-        //private void cargarProductosDelVendedor(long dni)
-        //{
-        //    ProductoNegocio negocio = new ProductoNegocio();
-        //    List<ProductosConImagenes> productos = negocio.listarPorVendedor(dni);
-
-        //    rptProductosUsuario.DataSource = productos;
-        //    rptProductosUsuario.DataBind();
-        //}
+        protected void btnModificar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Modificar")
+            {
+                int idProducto = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("EdicionProducto.aspx?id=" + idProducto);
+            }
+        }
 
 
         protected void rptProductos_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -58,5 +58,7 @@ namespace eCommerce
                 rptImagenes.DataBind();
             }
         }
+
+
     }
 }
