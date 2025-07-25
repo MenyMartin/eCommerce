@@ -18,16 +18,12 @@ namespace eCommerce
                 if (Request.QueryString["id"] != null)
                 {
                     int idProducto = int.Parse(Request.QueryString["id"]);
-
                     ProductoNegocio productoNeg = new ProductoNegocio();
-                    ProductosConImagenes productoConImg = productoNeg.ObtenerProductoConImg(idProducto);
+                    ProductosConImagenes producto = productoNeg.ObtenerProductoConImg(idProducto);
 
-                    if (productoConImg != null)
+                    if (producto != null)
                     {
-                        int id = Convert.ToInt32(Request.QueryString["id"]);
-                        ProductoNegocio negocio = new ProductoNegocio();
-                        ProductosConImagenes producto = negocio.ObtenerProductoConImg(id);
-
+                        // Mostrar datos del producto
                         lblNombre.Text = producto.nombre;
                         lblMarca.Text = producto.marca;
                         lblStock.Text = producto.stock.ToString();
@@ -39,7 +35,6 @@ namespace eCommerce
                         {
                             lblPrecioTachado.Text = "$" + producto.precio.ToString("0.00");
                             lblPrecioTachado.Visible = true;
-
                             decimal precioConDescuento = producto.precio * (1 - producto.descuento / 100.0m);
                             lblPrecioConDescuento.Text = "$" + precioConDescuento.ToString("0.00");
                         }
@@ -48,16 +43,36 @@ namespace eCommerce
                             lblPrecioConDescuento.Text = "$" + producto.precio.ToString("0.00");
                         }
 
-                        rptImagenes.DataSource = productoConImg.Imagenes;
+                        rptImagenes.DataSource = producto.Imagenes;
                         rptImagenes.DataBind();
 
                         UsuarioNegocio userNeg = new UsuarioNegocio();
-                        Usuario vendedor = userNeg.ObtenerVendedor(productoConImg.DNIVendedor);
-
+                        Usuario vendedor = userNeg.ObtenerVendedor(producto.DNIVendedor);
                         if (vendedor != null)
                         {
                             lblVendedor.Text = vendedor.nombre + " " + vendedor.apellido;
                             imgVendedor.ImageUrl = vendedor.URLFotoPerfil;
+                        }
+
+                        // Ocultar botón agregar al carrito si el producto está bloqueado o agotado
+                        if (producto.estado == "Bloqueado" || producto.estado == "Agotado")
+                            btnAgregarAlCariito.Visible = false;
+
+                        // Mostrar botón de bloquear/desbloquear si es admin
+                        if (Session["usuario"] is Usuario usuario && usuario.idPerfil.idPerfil == 3)
+                        {
+                            if (producto.estado == "Bloqueado")
+                            {
+                                btnDesbloquearProducto.Visible = true;
+                                btnBloquearProducto.Visible = false;
+                            }
+                            else
+                            {
+                                btnBloquearProducto.Visible = true;
+                                btnDesbloquearProducto.Visible = false;
+                            }
+
+                            btnAgregarAlCariito.Visible = false; // el admin no compra
                         }
                     }
                 }
@@ -66,7 +81,6 @@ namespace eCommerce
 
         protected void btnAgregarAlCarrito_Click(object sender, EventArgs e)
         {
-
             Usuario usuario = (Usuario)Session["usuario"];
             if (usuario == null)
             {
@@ -85,16 +99,34 @@ namespace eCommerce
 
                 decimal precio = producto.precio;
                 if (producto.descuento > 0)
-                {
                     precio *= (1 - producto.descuento / 100.0m);
-                }
 
                 carritoNeg.AgregarOActualizarDetalle(idCarrito, idProducto, precio);
 
-                // Opcional: mensaje o redirección
                 Response.Redirect("Carrito.aspx");
             }
+        }
 
+        protected void btnBloquearProducto_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["id"] != null)
+            {
+                int idProducto = int.Parse(Request.QueryString["id"]);
+                ProductoNegocio productoNeg = new ProductoNegocio();
+                productoNeg.ActualizarEstadoProducto(idProducto, "Bloqueado");
+                Response.Redirect(Request.RawUrl);
+            }
+        }
+
+        protected void btnDesbloquearProducto_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["id"] != null)
+            {
+                int idProducto = int.Parse(Request.QueryString["id"]);
+                ProductoNegocio productoNeg = new ProductoNegocio();
+                productoNeg.ActualizarEstadoProducto(idProducto, "Activo");
+                Response.Redirect(Request.RawUrl);
+            }
         }
     }
 }

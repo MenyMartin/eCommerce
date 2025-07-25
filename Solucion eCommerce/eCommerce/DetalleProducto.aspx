@@ -64,6 +64,9 @@
                 </p>
                 <!-- Botón Comprar -->
                 <asp:Button ID="btnAgregarAlCariito" runat="server" Text="Agregar al carrito" CssClass="btn btn-success btn-lg mt-3 w-100" OnClick="btnAgregarAlCarrito_Click" />
+                <!-- Botón para bloquear producto, solo visible a administradores -->
+                <asp:Button ID="btnBloquearProducto" runat="server" Text="Bloquear producto" CssClass="btn btn-danger mt-3 w-100" OnClick="btnBloquearProducto_Click" Visible="false" />
+                <asp:Button ID="btnDesbloquearProducto" runat="server" Text="Desbloquear producto" CssClass="btn btn-warning mt-3 w-100" OnClick="btnDesbloquearProducto_Click" Visible="false" />
             </div>
         </div>
 

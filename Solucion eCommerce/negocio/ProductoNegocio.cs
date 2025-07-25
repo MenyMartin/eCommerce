@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -373,6 +374,8 @@ namespace negocio
 
             try
             {
+                producto.estado = producto.stock == 0 ? "Agotado" : "Activo";
+
                 datos.setearConsulta(@"UPDATE Productos SET 
                                 Nombre = @Nombre, 
                                 Marca = @Marca, 
@@ -380,7 +383,8 @@ namespace negocio
                                 Precio = @Precio, 
                                 Stock = @Stock, 
                                 Descripcion = @Descripcion, 
-                                Descuento = @Descuento
+                                Descuento = @Descuento,
+                                Estado = @Estado
                               WHERE IdProducto = @IdProducto");
 
                 datos.setearParametro("@Nombre", producto.nombre);
@@ -391,6 +395,7 @@ namespace negocio
                 datos.setearParametro("@Descripcion", producto.descripcion);
                 datos.setearParametro("@Descuento", producto.descuento);
                 datos.setearParametro("@IdProducto", producto.idProducto);
+                datos.setearParametro("@Estado", producto.estado);
 
                 datos.ejecutarAccion();
             }
@@ -462,6 +467,93 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void ActualizarEstadoProducto(int idProducto, string nuevoEstado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Productos SET Estado = @estado WHERE IdProducto = @id");
+                datos.setearParametro("@estado", nuevoEstado);
+                datos.setearParametro("@id", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<ProductosConImagenes> ObtenerTodosProductosConImagenes()
+        {
+            List<ProductosConImagenes> productosConImg = new List<ProductosConImagenes>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"SELECT IdProducto, Nombre, Descripcion, Marca, Tipo, Precio, Stock, DNIVendedor, FechaPublicacion, Estado, Descuento 
+                                      FROM Productos");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    ProductosConImagenes producto = new ProductosConImagenes
+                    {
+                        idProducto = Convert.ToInt32(datos.Lector["IdProducto"]),
+                        nombre = datos.Lector["Nombre"]?.ToString() ?? "",
+                        descripcion = datos.Lector["Descripcion"]?.ToString() ?? "",
+                        marca = datos.Lector["Marca"]?.ToString() ?? "",
+                        tipo = datos.Lector["Tipo"]?.ToString() ?? "",
+                        precio = datos.Lector["Precio"] != DBNull.Value ? (decimal)datos.Lector["Precio"] : 0,
+                        stock = datos.Lector["Stock"] != DBNull.Value ? (int)datos.Lector["Stock"] : 0,
+                        DNIVendedor = datos.Lector["DNIVendedor"] != DBNull.Value ? Convert.ToInt32(datos.Lector["DNIVendedor"]) : 0,
+                        fechaPublicacion = datos.Lector["FechaPublicacion"] != DBNull.Value ? (DateTime)datos.Lector["FechaPublicacion"] : DateTime.MinValue,
+                        estado = datos.Lector["Estado"]?.ToString() ?? "",
+                        descuento = datos.Lector["Descuento"] != DBNull.Value ? (int)datos.Lector["Descuento"] : 0,
+                    };
+
+                    productosConImg.Add(producto);
+                }
+
+                datos.cerrarConexion();
+
+                foreach (var producto in productosConImg)
+                {
+                    datos.limpiarParametros();
+                    datos.setearConsulta("SELECT URLImagen FROM ProductoImagenes WHERE IdProducto = @IdProducto");
+                    datos.setearParametro("@IdProducto", producto.idProducto);
+                    datos.ejecutarLectura();
+
+                    if (producto.Imagenes == null)
+                        producto.Imagenes = new List<string>();
+
+                    while (datos.Lector.Read())
+                    {
+                        producto.Imagenes.Add(datos.Lector["URLImagen"].ToString());
+                    }
+                    datos.cerrarConexion();
+                }
+
+                return productosConImg;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+
         }
 
     }

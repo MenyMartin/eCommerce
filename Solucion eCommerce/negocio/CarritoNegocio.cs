@@ -74,6 +74,16 @@ namespace negocio
                     throw new Exception("No hay stock disponible para este producto.");
                 }
 
+                //dejo agotado si es stock=0
+                if (stockActual - 1 == 0)
+                {
+                    datos.setearConsulta("UPDATE Productos SET Estado = 'Agotado' WHERE IdProducto = @idProducto");
+                    datos.setearParametro("@idProducto", idProducto);
+                    datos.ejecutarAccion();
+                    datos.cerrarConexion();
+                    datos.limpiarParametros();
+                }
+
                 //descuento 1
                 datos.setearConsulta("UPDATE Productos SET stock = stock - 1 WHERE IdProducto = @idProducto");
                 datos.setearParametro("@idProducto", idProducto);
@@ -81,6 +91,7 @@ namespace negocio
                 datos.cerrarConexion();
                 datos.limpiarParametros();
 
+                
 
                 datos.setearConsulta("SELECT IdDetalle, Cantidad FROM CarritoDetalle WHERE idCarrito = @idCarrito AND IdProducto = @idProducto");
                 datos.setearParametro("@idCarrito", idCarrito);

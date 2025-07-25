@@ -30,6 +30,10 @@
                             <asp:Label ID="lblPassword" runat="server" CssClass="text-muted" /></p>
                         <p><strong>Fecha de registro:</strong>
                             <asp:Label ID="lblFechaRegistro" runat="server" CssClass="text-muted" /></p>
+
+                        <asp:Button ID="btnPanelAdmin" runat="server" Text="Panel de administrador" OnClick="btnPanelAdmin_Click" Visible="false" CssClass="btn btn-primary mt-2" />
+
+                        <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar sesión" CssClass="btn btn-danger mt-3 w-100" OnClick="btnCerrarSesion_Click" />
                     </div>
                 </div>
             </div>

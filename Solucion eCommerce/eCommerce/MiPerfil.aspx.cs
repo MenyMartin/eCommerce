@@ -33,6 +33,11 @@ namespace eCommerce
                 lblPassword.Text = usuario.contraseña;
                 lblFechaRegistro.Text = usuario.fechaRegistro.ToString("dd/MM/yyyy");
 
+                if (usuario.idPerfil.idPerfil == 3)
+                {
+                    btnPanelAdmin.Visible = true;
+                }
+
                 //----- secion pedidos                
 
                 long dni = ((Usuario)Session["usuario"]).DNI;
@@ -67,6 +72,18 @@ namespace eCommerce
                 rptDetalles.DataSource = pedido.detalles;
                 rptDetalles.DataBind();
             }
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("Default.aspx");
+        }
+
+        protected void btnPanelAdmin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Admin.aspx");
         }
     }
 }
