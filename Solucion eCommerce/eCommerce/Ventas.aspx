@@ -10,14 +10,13 @@
         <div class="d-flex justify-content-center gap-3">
 
             <asp:Button ID="btnAlta" runat="server" Text="Vender un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
-
+            <asp:Button ID="btnSolicitarVendedor" runat="server" Text="Quiero ser vendedor" CssClass="btn btn-primary" OnClick="btnSolicitarVendedor_Click" Visible="false" />
         </div>
 
-    </div>
-
+    </div>    
 
     <div class="container mt-4">
-        <h2 class="mb-4">Mis productos en venta</h2>
+        <asp:Label ID="lblTituloMisProductos" runat="server" CssClass="h2 mb-4" Text="Mis productos en venta"></asp:Label>
         <div class="row">
             <asp:Repeater ID="rptProductos" runat="server" OnItemDataBound="rptProductos_ItemDataBound">
                 <ItemTemplate>

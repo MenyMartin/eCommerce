@@ -23,6 +23,15 @@ namespace eCommerce
                     return;
                 }
 
+                if (usuario.idPerfil.idPerfil == 1)
+                {
+                    btnSolicitarVendedor.Visible = true;
+                    btnAlta.Visible = false;
+                    lblTituloMisProductos.Visible = false;
+                }
+
+
+
                 ProductoNegocio negocio = new ProductoNegocio();
                 listaProductos = negocio.listarPorVendedor(usuario.DNI);
 
@@ -110,6 +119,27 @@ namespace eCommerce
             catch (Exception ex)
             {
                 Response.Write("Error al dar de alta el producto: " + ex.Message);
+            }
+        }
+
+        protected void btnSolicitarVendedor_Click(object sender, EventArgs e)
+        {
+            if (Session["usuario"] is Usuario usuario)
+            {
+                SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+
+                bool yaSolicitado = solicitudNeg.SolicitudExistente(usuario.DNI);
+                if (!yaSolicitado)
+                {
+                    solicitudNeg.CrearSolicitud(usuario.DNI);
+                    btnSolicitarVendedor.Text = "Solicitud enviada";
+                    btnSolicitarVendedor.Enabled = false;
+                }
+                else
+                {
+                    btnSolicitarVendedor.Text = "Ya enviaste una solicitud";
+                    btnSolicitarVendedor.Enabled = false;
+                }
             }
         }
     }
