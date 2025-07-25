@@ -8,6 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 bg-white shadow p-4 rounded">
                 <h3 class="text-center mb-4">Editar Producto</h3>
+                <asp:Label ID="lblMensaje" runat="server" CssClass="alert alert-success text-center d-block" Visible="false" />
 
                 <!-- Nombre -->
                 <div class="mb-3">

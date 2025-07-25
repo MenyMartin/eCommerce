@@ -23,6 +23,13 @@ namespace eCommerce
             if (!IsPostBack)
             {
 
+                if (Request.QueryString["msg"] == "ok")
+                {
+                    lblMensaje.Text = "Producto actualizado correctamente.";
+                    lblMensaje.Visible = true;
+                    lblMensaje.CssClass = "alert alert-success text-center d-block";
+                }
+
                 if (int.TryParse(Request.QueryString["id"], out int idProducto))
                 {
                     ProductoNegocio negocio = new ProductoNegocio();
@@ -77,6 +84,44 @@ namespace eCommerce
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                    string.IsNullOrWhiteSpace(txtMarca.Text) ||
+                    string.IsNullOrWhiteSpace(txtTipo.Text) ||
+                    string.IsNullOrWhiteSpace(txtPrecio.Text) ||
+                    string.IsNullOrWhiteSpace(txtStock.Text) ||
+                    string.IsNullOrWhiteSpace(txtDescripcion.Text) ||
+                    string.IsNullOrWhiteSpace(txtDescuento.Text))
+                {
+                    lblMensaje.Text = "Por favor, completá todos los campos.";
+                    lblMensaje.CssClass = "alert alert-danger text-center d-block";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                if (!decimal.TryParse(txtPrecio.Text, out decimal precio))
+                {
+                    lblMensaje.Text = "El precio debe ser un número válido.";
+                    lblMensaje.CssClass = "alert alert-danger text-center d-block";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                if (!int.TryParse(txtStock.Text, out int stock))
+                {
+                    lblMensaje.Text = "El stock debe ser un número entero.";
+                    lblMensaje.CssClass = "alert alert-danger text-center d-block";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                if (!int.TryParse(txtDescuento.Text, out int descuento))
+                {
+                    lblMensaje.Text = "El descuento debe ser un número entero.";
+                    lblMensaje.CssClass = "alert alert-danger text-center d-block";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
                 int idProducto = Convert.ToInt32(Request.QueryString["id"]);
 
                 Producto producto = new Producto();
@@ -84,10 +129,9 @@ namespace eCommerce
                 producto.nombre = txtNombre.Text.Trim();
                 producto.marca = txtMarca.Text.Trim();
                 producto.tipo = txtTipo.Text.Trim();
-                producto.precio = decimal.Parse(txtPrecio.Text.Trim());
-                producto.stock = int.Parse(txtStock.Text.Trim());
-                producto.descripcion = txtDescripcion.Text.Trim();
-                producto.descuento = int.Parse(txtDescuento.Text.Trim());
+                producto.precio = precio;
+                producto.stock = stock;
+                producto.descuento = descuento; ;
 
                 ProductoNegocio negocio = new ProductoNegocio();
 
@@ -122,7 +166,7 @@ namespace eCommerce
                 }
 
 
-                Response.Redirect("EdicionProducto.aspx?id=" + idProducto);
+                Response.Redirect("EdicionProducto.aspx?id=" + idProducto + "&msg=ok");
             }
             catch (Exception ex)
             {

@@ -243,9 +243,11 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"INSERT INTO Productos (Nombre, Marca, Tipo, Precio, Stock, Descripcion, Estado, DNIVendedor, Descuento, FechaPublicacion)
-                               OUTPUT INSERTED.IdProducto
-                               VALUES (@Nombre, @Marca, @Tipo, @Precio, @Stock, @Descripcion, @Estado, @DNIVendedor, @Descuento, @Fecha)");
+                datos.setearConsulta(@"INSERT INTO Productos 
+            (Nombre, Marca, Tipo, Precio, Stock, Descripcion, Estado, DNIVendedor, Descuento, FechaPublicacion)
+            OUTPUT INSERTED.IdProducto
+            VALUES 
+            (@Nombre, @Marca, @Tipo, @Precio, @Stock, @Descripcion, @Estado, @DNIVendedor, @Descuento, @Fecha)");
 
                 datos.setearParametro("@Nombre", producto.nombre);
                 datos.setearParametro("@Marca", producto.marca);
@@ -258,10 +260,12 @@ namespace negocio
                 datos.setearParametro("@Descuento", producto.descuento);
                 datos.setearParametro("@Fecha", producto.fechaPublicacion == DateTime.MinValue ? DateTime.Now : producto.fechaPublicacion);
 
-                datos.setearConsulta("SELECT SCOPE_IDENTITY()"); // obtiene ultimo ID
+                // Ejecuta y obtiene el ID directamente desde el INSERT
                 object idNuevo = datos.ejecutarScalar();
-                int id = Convert.ToInt32(idNuevo);
+                if (idNuevo == null || idNuevo == DBNull.Value)
+                    throw new Exception("No se pudo obtener el ID del nuevo producto.");
 
+                int id = Convert.ToInt32(idNuevo);
 
                 foreach (string url in urlsImagenes)
                 {
