@@ -99,6 +99,14 @@ namespace eCommerce
                     btnBaja.Visible = true;
                     btnAlta.Visible = false;
                 }
+
+                if (estado == "Bloqueado")
+                {
+                 
+                    btnBaja.Visible = false;
+                    btnAlta.Visible = false;                    
+
+                }
             }
         }
 

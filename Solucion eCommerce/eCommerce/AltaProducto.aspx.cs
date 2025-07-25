@@ -109,6 +109,18 @@ namespace eCommerce
             lblResultado.Text = "Producto y fotos guardados correctamente.";
             lblResultado.CssClass = "text-success";
             lblResultado.Visible = true;
+
+            
+            txtNombre.Text = "";
+            txtMarca.Text = "";
+            txtTipo.Text = "";
+            txtPrecio.Text = "";
+            txtStock.Text = "";
+            txtDescripcion.Text = "";
+            txtDescuento.Text = "";
+            txtFoto1.Text = "";
+            txtFoto2.Text = "";
+            txtFoto3.Text = "";
         }
     }
 }

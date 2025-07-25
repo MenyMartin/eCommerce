@@ -131,7 +131,8 @@ namespace eCommerce
                 producto.tipo = txtTipo.Text.Trim();
                 producto.precio = precio;
                 producto.stock = stock;
-                producto.descuento = descuento; ;
+                producto.descuento = descuento;
+                producto.descripcion = txtDescripcion.Text.Trim();
 
                 ProductoNegocio negocio = new ProductoNegocio();
 

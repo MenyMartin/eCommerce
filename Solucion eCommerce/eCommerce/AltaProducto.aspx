@@ -9,10 +9,13 @@
 
     <h1 class="text-center mb-4">Ventas del usuario</h1>
 
+
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8 bg-white shadow p-4 rounded">
                 <h3 class="text-center mb-4">Cargar Producto</h3>
+                 <asp:Label ID="lblResultado" runat="server" CssClass="text-success mt-3 d-block text-center" Visible="false" />
+
 
                 <!-- Nombre -->
                 <div class="mb-3">
@@ -147,8 +150,7 @@
                 <div class="text-center mt-3">
                     <asp:Button ID="btnGuardar" Text="Guardar" runat="server" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
                 </div>
-
-                <asp:Label ID="lblResultado" runat="server" CssClass="text-success mt-3 d-block text-center" Visible="false" />
+               
             </div>
         </div>
     </div>

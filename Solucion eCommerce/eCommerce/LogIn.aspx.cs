@@ -114,7 +114,7 @@ namespace eCommerce
 
                 pnlRegistro.Visible = false;
 
-                // Response.AddHeader("REFRESH", "2;URL=LogIn.aspx");
+                
             }
             catch (Exception ex)
             {
