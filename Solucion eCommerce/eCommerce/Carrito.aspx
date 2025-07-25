@@ -8,7 +8,11 @@
 
     </div>
 
-    <asp:Repeater ID="rptCarrito" runat="server">
+    <div class="mb-4 text-center">
+        <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Font-Bold="true" Visible="false"></asp:Label>
+    </div>
+
+    <asp:Repeater ID="rptCarrito" runat="server" OnItemCommand="rptCarrito_ItemCommand">
     <ItemTemplate>
         <div class="card mb-3 mx-auto" style="max-width: 540px;">
             <div class="row g-0 align-items-center">
@@ -21,6 +25,8 @@
                         <p class="card-text mb-1" style="font-size: 0.9rem;">Cantidad: <%# Eval("Cantidad") %></p>
                         <p class="card-text mb-1" style="font-size: 0.9rem;">Precio unitario: $<%# Eval("PrecioUnitario", "{0:0.00}") %></p>
                         <p class="card-text mb-0 fw-bold" style="font-size: 0.9rem;">Subtotal: $<%# Eval("Subtotal", "{0:0.00}") %></p>
+
+                        <asp:Button ID="btnQuitar" runat="server" Text="Quitar" CommandName="Quitar" CommandArgument='<%# Eval("idProducto") %>' CssClass="btn btn-sm btn-danger mt-2" />
                     </div>
                 </div>
             </div>

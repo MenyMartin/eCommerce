@@ -176,5 +176,64 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void QuitarItemCarrito(long dni, int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                int idCarrito = ObtenerOCrearCarritoActivo(dni);
+
+                // Obtiene cantidad del carrito
+                datos.setearConsulta("SELECT Cantidad FROM CarritoDetalle WHERE IdCarrito = @idCarrito AND IdProducto = @idProducto");
+                datos.setearParametro("@idCarrito", idCarrito);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarLectura();
+
+                if (!datos.Lector.Read())
+                {
+                    datos.cerrarConexion();
+                    return;
+                }
+
+                int cantidadActual = (int)datos.Lector["Cantidad"];
+                datos.cerrarConexion();
+
+                //devuelve 1 al stock
+                datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Productos SET Stock = Stock + 1 WHERE IdProducto = @idProducto");
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
+                if (cantidadActual > 1)
+                {
+                    //saca 1 del carrito
+                    datos = new AccesoDatos();
+                    datos.setearConsulta("UPDATE CarritoDetalle SET Cantidad = Cantidad - 1 WHERE IdCarrito = @idCarrito AND IdProducto = @idProducto");
+                    datos.setearParametro("@idCarrito", idCarrito);
+                    datos.setearParametro("@idProducto", idProducto);
+                    datos.ejecutarAccion();
+                }
+                else
+                {
+                    //elimina si queda en 0
+                    datos = new AccesoDatos();
+                    datos.setearConsulta("DELETE FROM CarritoDetalle WHERE IdCarrito = @idCarrito AND IdProducto = @idProducto");
+                    datos.setearParametro("@idCarrito", idCarrito);
+                    datos.setearParametro("@idProducto", idProducto);
+                    datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al quitar producto del carrito", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
