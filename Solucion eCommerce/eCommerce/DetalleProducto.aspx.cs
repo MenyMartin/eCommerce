@@ -67,6 +67,34 @@ namespace eCommerce
         protected void btnAgregarAlCarrito_Click(object sender, EventArgs e)
         {
 
+            Usuario usuario = (Usuario)Session["usuario"];
+            if (usuario == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
+            int idProducto = Convert.ToInt32(Request.QueryString["id"]);
+            ProductoNegocio productoNeg = new ProductoNegocio();
+            ProductosConImagenes producto = productoNeg.ObtenerProductoConImg(idProducto);
+
+            if (producto != null)
+            {
+                CarritoNegocio carritoNeg = new CarritoNegocio();
+                int idCarrito = carritoNeg.ObtenerOCrearCarritoActivo(usuario.DNI);
+
+                decimal precio = producto.precio;
+                if (producto.descuento > 0)
+                {
+                    precio *= (1 - producto.descuento / 100.0m);
+                }
+
+                carritoNeg.AgregarOActualizarDetalle(idCarrito, idProducto, precio);
+
+                // Opcional: mensaje o redirección
+                Response.Redirect("Carrito.aspx");
+            }
+
         }
     }
 }

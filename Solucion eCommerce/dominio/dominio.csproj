@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Carrito.cs" />
     <Compile Include="CarritoDetalle.cs" />
+    <Compile Include="CarritoVerItem.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="PedidoDetalle.cs" />
     <Compile Include="Perfil.cs" />

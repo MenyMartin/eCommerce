@@ -11,7 +11,7 @@ namespace dominio
     internal class Carrito
     {
         public int IdCarrito { get; set; }
-        public int idUsuario { get; set; }
+        public long dni { get; set; }
         public DateTime fechaCreacion { get; set; }
         public bool activo { get; set; }
 

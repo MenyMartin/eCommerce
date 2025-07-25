@@ -11,7 +11,7 @@ namespace dominio
         public int idDetalleCarrito { get; set; }
         public int idCarrito { get; set; }
         public int idProducto { get; set; }
-        public int catidad { get; set; }
+        public int cantidad { get; set; }
         public int precioUnitario { get; set; }
 
     }
