@@ -10,6 +10,7 @@
     
     <div class="container mt-4">
 
+        <asp:Label ID="lblSinResultados" runat="server" CssClass="text-danger" Visible="false" Text="No se encontraron resultados." />
 
         <div class="container mt-4">
             <div class="row">

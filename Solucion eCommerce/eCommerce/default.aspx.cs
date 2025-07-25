@@ -17,6 +17,23 @@ namespace eCommerce
             {
                 ProductoNegocio negocio = new ProductoNegocio();
                 List<ProductosConImagenes> productos = negocio.ObtenerProductosConImagenes();
+
+                string terminoBusqueda = Request.QueryString["buscar"];
+
+                if (!string.IsNullOrEmpty(terminoBusqueda))
+                {
+                    string termino = terminoBusqueda.ToLower();
+
+                    // Filtrar busqueda
+                    productos = productos.Where(p =>
+                        (!string.IsNullOrEmpty(p.nombre) && p.nombre.ToLower().Contains(termino)) ||
+                        (!string.IsNullOrEmpty(p.descripcion) && p.descripcion.ToLower().Contains(termino)) ||
+                        (!string.IsNullOrEmpty(p.tipo) && p.tipo.ToLower().Contains(termino)) ||
+                        (!string.IsNullOrEmpty(p.marca) && p.marca.ToLower().Contains(termino))
+                    ).ToList();
+                }
+
+
                 rptProductos.DataSource = productos;
                 rptProductos.DataBind();
             }

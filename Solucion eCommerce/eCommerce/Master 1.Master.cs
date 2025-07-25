@@ -45,7 +45,12 @@ namespace eCommerce
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-        
+            string textoBuscado = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(textoBuscado))
+            {
+                Response.Redirect("~/default.aspx?buscar=" + Server.UrlEncode(textoBuscado));
+            }
         }
     }
 }
