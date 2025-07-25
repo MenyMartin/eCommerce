@@ -42,7 +42,19 @@
         </div>
     </div>
 
+   <div class="d-flex justify-content-center mt-4">
+        <asp:DropDownList ID="ddlMedioPago" runat="server" CssClass="form-select w-100" style="max-width: 400px;">
+            <asp:ListItem Text="Seleccione un medio de pago" Value="" />
+            <asp:ListItem Text="Tarjeta" Value="Tarjeta" />
+            <asp:ListItem Text="Mercado Pago" Value="MercadoPago" />
+            <asp:ListItem Text="Efectivo" Value="Efectivo" />
+        </asp:DropDownList>
+    </div>
+
     <div class="mb-4 text-center">
         <asp:Button ID="btnFinalizarCompra" runat="server" Text="Finalizar Compra" CssClass="btn btn-success" OnClick="btnFinalizarCompra_Click" />
     </div>
+
+    
+
 </asp:Content>

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class Pedido
+    public class Pedido
     {
         public int idPedido { get; set; }
-        public int idUsuario { get; set; }
+        public long dni { get; set; }
         public DateTime fechaPedido { get; set; }
         public String estado { get; set; }
-        public int total { get; set; }
+        public decimal total { get; set; }
 
     }
 }

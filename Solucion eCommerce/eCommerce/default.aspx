@@ -4,6 +4,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div>
+    <h1 class="text-center mb-4">Bienvenido a eCommeny</h1>
+    </div>
+    
     <div class="container mt-4">
 
 

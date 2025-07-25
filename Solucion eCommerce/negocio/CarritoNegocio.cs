@@ -235,5 +235,20 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void CerrarCarrito(long dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE Carritos SET Activo = 0 WHERE DNI = @dni AND Activo = 1");
+                datos.setearParametro("@dni", dni);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

@@ -72,11 +72,7 @@
                         </a>
                     </div>
                 </div>
-            </nav>
-
-            <div>
-                <h1 class="text-center mb-4">Bienvenido a eCommeny</h1>
-            </div>
+            </nav>            
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
             <div id="footer" class="text-center py-3 bg-light w-100">
