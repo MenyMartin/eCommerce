@@ -30,6 +30,20 @@ namespace eCommerce
                     lblTituloMisProductos.Visible = false;
                 }
 
+                if (usuario.idPerfil.idPerfil == 3)
+                {
+                    btnSolicitarVendedor.Visible = false;
+                    btnAlta.Visible = false;
+                    lblTituloMisProductos.Visible = false;
+                    LblSolicitudes.Visible = true;
+                    pnlSolicitudes.Visible = true;
+
+                    SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+                    List<Solicitud> solicitudes = solicitudNeg.ListarPendientes();
+                    rptSolicitudes.DataSource = solicitudes;
+                    rptSolicitudes.DataBind();
+                }
+
 
 
                 ProductoNegocio negocio = new ProductoNegocio();
@@ -141,6 +155,25 @@ namespace eCommerce
                     btnSolicitarVendedor.Enabled = false;
                 }
             }
+        }
+
+        protected void rptSolicitudes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            long dni = Convert.ToInt64(e.CommandArgument);
+            SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+            UsuarioNegocio usuarioNeg = new UsuarioNegocio();
+
+            if (e.CommandName == "Aceptar")
+            {
+                solicitudNeg.CambiarEstado(dni, "Aceptada");
+                usuarioNeg.ActualizarPerfil(dni, 2); // Cambia a vendedor
+            }
+            else if (e.CommandName == "Rechazar")
+            {
+                solicitudNeg.CambiarEstado(dni, "Rechazada");
+            }
+
+            Response.Redirect("Ventas.aspx");
         }
     }
 }

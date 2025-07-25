@@ -206,5 +206,26 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void ActualizarPerfil(long dni, int nuevoPerfil)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Usuarios SET IdPerfil = @Perfil WHERE DNI = @DNI");
+                datos.setearParametro("@Perfil", nuevoPerfil);
+                datos.setearParametro("@DNI", dni);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

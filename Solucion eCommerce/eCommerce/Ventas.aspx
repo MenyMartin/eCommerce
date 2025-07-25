@@ -11,9 +11,32 @@
 
             <asp:Button ID="btnAlta" runat="server" Text="Vender un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
             <asp:Button ID="btnSolicitarVendedor" runat="server" Text="Quiero ser vendedor" CssClass="btn btn-primary" OnClick="btnSolicitarVendedor_Click" Visible="false" />
+            <asp:Label ID="LblSolicitudes" runat="server" CssClass="h2 mb-4" Text="Solicitudes para ser vendedor" Visible="false"></asp:Label>
         </div>
 
-    </div>    
+    </div>
+
+    <asp:Panel ID="pnlSolicitudes" runat="server" Visible="false" CssClass="container mt-5">
+        <asp:Repeater ID="rptSolicitudes" runat="server" OnItemCommand="rptSolicitudes_ItemCommand">
+            <HeaderTemplate>
+                <div class="row mb-3">
+                    <div class="col fw-bold">DNI</div>
+                    <div class="col fw-bold">Nombre</div>
+                    <div class="col fw-bold">Acciones</div>
+                </div>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <div class="row align-items-center mb-2">
+                    <div class="col"><%# Eval("DNI") %></div>
+                    <div class="col"><%# Eval("NombreCompleto") %></div>
+                    <div class="col">
+                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CommandName="Aceptar" CommandArgument='<%# Eval("DNI") %>' CssClass="btn btn-success btn-sm me-2" />
+                        <asp:Button ID="btnRechazar" runat="server" Text="Rechazar" CommandName="Rechazar" CommandArgument='<%# Eval("DNI") %>' CssClass="btn btn-danger btn-sm" />
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </asp:Panel>
 
     <div class="container mt-4">
         <asp:Label ID="lblTituloMisProductos" runat="server" CssClass="h2 mb-4" Text="Mis productos en venta"></asp:Label>

@@ -33,6 +33,16 @@ namespace negocio
                 cuerpo + "<br><br>A la brevedad un profesional se estará comunicando con vos";            
         }
 
+        public void correoCompra(string emailDestino, string cuerpo, string nombre)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("noresponder@eCommeny.com");
+            email.To.Add(emailDestino);
+            email.Subject = "Contacto desde eCommeny";
+            email.IsBodyHtml = true;
+            email.Body = cuerpo;
+        }
+
         public void enviarEmail()
         {
             try

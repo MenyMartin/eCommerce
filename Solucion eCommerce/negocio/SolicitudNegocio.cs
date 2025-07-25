@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using dominio;
 
 namespace negocio
 {
@@ -45,5 +46,52 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Solicitud> ListarPendientes()
+        {
+            List<Solicitud> lista = new List<Solicitud>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT s.DNISolicitante, u.nombre + ' ' + u.apellido AS NombreCompleto
+                            FROM SolicitudesCambioRol s
+                            JOIN Usuarios u ON s.DNISolicitante = u.DNI
+                            WHERE s.estado = 'Pendiente'");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    lista.Add(new Solicitud
+                    {
+                        DNI = (long)datos.Lector["DNISolicitante"],
+                        NombreCompleto = datos.Lector["NombreCompleto"].ToString()
+                    });
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void CambiarEstado(long dni, string nuevoEstado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE SolicitudesCambioRol SET estado = @estado WHERE DNISolicitante = @dni");
+                datos.setearParametro("@estado", nuevoEstado);
+                datos.setearParametro("@dni", dni);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        
     }
 }

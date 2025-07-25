@@ -23,7 +23,7 @@ namespace eCommerce
 
                     if (producto != null)
                     {
-                        // Mostrar datos del producto
+                        
                         lblNombre.Text = producto.nombre;
                         lblMarca.Text = producto.marca;
                         lblStock.Text = producto.stock.ToString();
@@ -54,25 +54,34 @@ namespace eCommerce
                             imgVendedor.ImageUrl = vendedor.URLFotoPerfil;
                         }
 
-                        // Ocultar botón agregar al carrito si el producto está bloqueado o agotado
-                        if (producto.estado == "Bloqueado" || producto.estado == "Agotado")
-                            btnAgregarAlCariito.Visible = false;
-
-                        // Mostrar botón de bloquear/desbloquear si es admin
-                        if (Session["usuario"] is Usuario usuario && usuario.idPerfil.idPerfil == 3)
+                        if (Session["usuario"] is Usuario usuario)
                         {
-                            if (producto.estado == "Bloqueado")
+                            //bloqueado o agotado
+                            if (producto.estado == "Bloqueado" || producto.estado == "Agotado")
+                                btnAgregarAlCariito.Visible = false;
+
+                            // Si es admin
+                            if (usuario.idPerfil.idPerfil == 3)
                             {
-                                btnDesbloquearProducto.Visible = true;
-                                btnBloquearProducto.Visible = false;
-                            }
-                            else
-                            {
-                                btnBloquearProducto.Visible = true;
-                                btnDesbloquearProducto.Visible = false;
+                                if (producto.estado == "Bloqueado")
+                                {
+                                    btnDesbloquearProducto.Visible = true;
+                                    btnBloquearProducto.Visible = false;
+                                }
+                                else
+                                {
+                                    btnBloquearProducto.Visible = true;
+                                    btnDesbloquearProducto.Visible = false;
+                                }
+
+                                btnAgregarAlCariito.Visible = false; // el admin no compra
                             }
 
-                            btnAgregarAlCariito.Visible = false; // el admin no compra
+                            //no se puede autocomprar
+                            if (usuario.DNI == producto.DNIVendedor)
+                            {
+                                btnAgregarAlCariito.Visible = false;
+                            }
                         }
                     }
                 }

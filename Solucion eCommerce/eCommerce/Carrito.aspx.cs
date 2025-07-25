@@ -98,6 +98,21 @@ namespace eCommerce
             // 3. Cerrar carrito
             carritoNegocio.CerrarCarrito(dni);
 
+            try
+            {
+                EmailService emailService = new EmailService();
+                string cuerpo = $"Tu pedido #{idPedido} fue registrado exitosamente el {DateTime.Now}.<br>" +
+                                $"Total: ${total}<br>" +
+                                "Pronto recibirás más información sobre el estado del envío.";
+                emailService.correoCompra(usuario.email, cuerpo, usuario.nombre);
+                emailService.enviarEmail();
+            }
+            catch (Exception ex)
+            {                
+                lblMensaje.Text = "Compra realizada, pero no se pudo enviar el email.";
+                throw ex;
+            }
+
             lblMensaje.Text = "¡Compra finalizada correctamente!";
             lblMensaje.CssClass = "alert alert-success";
             Response.Redirect("MiPerfil.aspx");
