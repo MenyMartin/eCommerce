@@ -36,8 +36,8 @@ namespace eCommerce
                 rptCarrito.DataSource = items;
                 rptCarrito.DataBind();                
 
-                //decimal total = items.Sum(x => x.Subtotal);
-                //lblTotal.Text = "Total: $" + total.ToString("0.00");
+                decimal total = items.Sum(x => x.Subtotal);
+                lblTotal.Text = "Total: $" + total.ToString("0.00");
             }
         }
 

@@ -34,8 +34,15 @@
     </ItemTemplate>
 </asp:Repeater>
 
-<h4 class="text-end mt-4"><asp:Label ID="lblTotal" runat="server" CssClass="fw-bold text-primary" /></h4>
-    <div class="text-end mt-3">
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card p-3 shadow-sm" style="max-width: 300px;">
+            <h4 class="text-center mb-0">
+                <asp:Label ID="lblTotal" runat="server" CssClass="fw-bold text-primary" />
+            </h4>
+        </div>
+    </div>
+
+    <div class="mb-4 text-center">
         <asp:Button ID="btnFinalizarCompra" runat="server" Text="Finalizar Compra" CssClass="btn btn-success" OnClick="btnFinalizarCompra_Click" />
     </div>
 </asp:Content>

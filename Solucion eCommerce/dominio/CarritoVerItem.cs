@@ -14,6 +14,9 @@ namespace dominio
         public string imagenURL { get; set; }
         public int cantidad { get; set; }
         public decimal precioUnitario { get; set; }
-        public decimal subtotal => precioUnitario * cantidad;
+        public decimal Subtotal
+        {
+            get { return precioUnitario * cantidad; }
+        }
     }
 }
