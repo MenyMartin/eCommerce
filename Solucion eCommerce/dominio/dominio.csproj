@@ -46,6 +46,7 @@
     <Compile Include="CarritoVerItem.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="PedidoDetalle.cs" />
+    <Compile Include="PedidoDetalleExtendido.cs" />
     <Compile Include="Perfil.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="ProductosConImagenes.cs" />

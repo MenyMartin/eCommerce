@@ -14,5 +14,7 @@ namespace dominio
         public String estado { get; set; }
         public decimal total { get; set; }
 
+        public List<PedidoDetalleExtendido> detalles { get; set; }
+
     }
 }

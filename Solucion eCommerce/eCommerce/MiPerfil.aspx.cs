@@ -1,4 +1,5 @@
 ﻿using dominio;
+using negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,40 @@ namespace eCommerce
                 lblEmail.Text = usuario.email;
                 lblPassword.Text = usuario.contraseña;
                 lblFechaRegistro.Text = usuario.fechaRegistro.ToString("dd/MM/yyyy");
+
+                //----- secion pedidos                
+
+                long dni = ((Usuario)Session["usuario"]).DNI;
+
+                PedidoNegocio pedidoNegocio = new PedidoNegocio();
+                List<Pedido> pedidos = pedidoNegocio.ListarPedidosPorUsuario(dni);
+
+
+                PedidoNegocio negocioPedido = new PedidoNegocio();
+
+                foreach (Pedido pedido in pedidos)
+                {
+                    pedido.detalles = negocioPedido.ListarDetallesPorPedido(pedido.idPedido);
+                }
+
+                rptPedidos.DataSource = pedidos;
+                rptPedidos.DataBind();
+            }
+
+            
+        }
+
+        protected void rptPedidos_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                
+                var pedido = (Pedido)e.Item.DataItem;
+
+                
+                var rptDetalles = (Repeater)e.Item.FindControl("rptDetalles");
+                rptDetalles.DataSource = pedido.detalles;
+                rptDetalles.DataBind();
             }
         }
     }

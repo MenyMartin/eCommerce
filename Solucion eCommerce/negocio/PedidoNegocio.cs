@@ -44,5 +44,94 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<PedidoDetalleExtendido> ListarDetallesPorPedido(int idPedido)
+        {
+            List<PedidoDetalleExtendido> lista = new List<PedidoDetalleExtendido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"
+                                       SELECT 
+                                           pd.idDetalle,
+                                           pd.idPedido,
+                                           pd.idProducto,
+                                           p.Nombre,
+                                           p.Marca,
+                                           pd.cantidad,
+                                           pd.precioUnitario,
+                                           pd.subtotal
+                                       FROM PedidoDetalle pd
+                                       JOIN Productos p ON pd.idProducto = p.IdProducto
+                                       WHERE pd.idPedido = @idPedido
+                                   ");
+
+                datos.setearParametro("@idPedido", idPedido);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    PedidoDetalleExtendido detalle = new PedidoDetalleExtendido
+                    {
+                        idDetallePedido = (int)datos.Lector["idDetalle"],
+                        idPedido = (int)datos.Lector["idPedido"],
+                        idProducto = (int)datos.Lector["idProducto"],
+                        nombreProducto = datos.Lector["Nombre"].ToString(),
+                        marcaProducto = datos.Lector["Marca"].ToString(),
+                        cantidad = (int)datos.Lector["cantidad"],
+                        precioUnitario = Convert.ToDecimal(datos.Lector["precioUnitario"]),
+                        subtotal = Convert.ToDecimal(datos.Lector["subtotal"])
+                    };
+
+                    lista.Add(detalle);
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Pedido> ListarPedidosPorUsuario(long idUsuario)
+        {
+            List<Pedido> pedidos = new List<Pedido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdPedido, DNI, FechaPedido, Estado, Total FROM Pedidos WHERE DNI = @idUsuario");
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Pedido pedido = new Pedido();
+                    pedido.idPedido = (int)datos.Lector["IdPedido"];
+                    pedido.dni = (long)datos.Lector["DNI"];
+                    pedido.fechaPedido = (DateTime)datos.Lector["FechaPedido"];
+                    pedido.estado = datos.Lector["Estado"].ToString();
+                    pedido.total = Convert.ToDecimal(datos.Lector["Total"]);
+
+                    
+                    PedidoNegocio negocioDetalle = new PedidoNegocio();
+                    pedido.detalles = negocioDetalle.ListarDetallesPorPedido(pedido.idPedido);
+
+                    pedidos.Add(pedido);
+                }
+
+                return pedidos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
