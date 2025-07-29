@@ -116,7 +116,7 @@
     <Content Include="styles\logIn .css" />
     <Content Include="styles\master.css" />
     <Content Include="AltaProducto.aspx" />
-    <Content Include="Ventas.aspx" />
+    <Content Include="Administrar.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -205,12 +205,12 @@
     <Compile Include="AltaProducto.aspx.designer.cs">
       <DependentUpon>AltaProducto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Ventas.aspx.cs">
-      <DependentUpon>Ventas.aspx</DependentUpon>
+    <Compile Include="Administrar.aspx.cs">
+      <DependentUpon>Administrar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Ventas.aspx.designer.cs">
-      <DependentUpon>Ventas.aspx</DependentUpon>
+    <Compile Include="Administrar.aspx.designer.cs">
+      <DependentUpon>Administrar.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

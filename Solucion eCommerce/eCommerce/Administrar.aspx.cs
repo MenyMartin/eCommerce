@@ -23,25 +23,25 @@ namespace eCommerce
                     return;
                 }
 
-                if (usuario.idPerfil.idPerfil == 1)
-                {
-                    btnSolicitarVendedor.Visible = true;
-                    btnAlta.Visible = false;
-                    lblTituloMisProductos.Visible = false;
-                }
+                //if (usuario.idPerfil.idPerfil == 1)
+                //{
+                //    btnSolicitarVendedor.Visible = true;
+                //    btnAlta.Visible = false;
+                //    lblTituloMisProductos.Visible = false;
+                //}
 
                 if (usuario.idPerfil.idPerfil == 3)
                 {
-                    btnSolicitarVendedor.Visible = false;
-                    btnAlta.Visible = false;
+                    //btnSolicitarVendedor.Visible = false;
+                    btnAlta.Visible = true;
                     lblTituloMisProductos.Visible = false;
-                    LblSolicitudes.Visible = true;
-                    pnlSolicitudes.Visible = true;
+                    //LblSolicitudes.Visible = true;
+                    //pnlSolicitudes.Visible = true;
 
-                    SolicitudNegocio solicitudNeg = new SolicitudNegocio();
-                    List<Solicitud> solicitudes = solicitudNeg.ListarPendientes();
-                    rptSolicitudes.DataSource = solicitudes;
-                    rptSolicitudes.DataBind();
+                    //SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+                    //List<Solicitud> solicitudes = solicitudNeg.ListarPendientes();
+                    //rptSolicitudes.DataSource = solicitudes;
+                    //rptSolicitudes.DataBind();
                 }
 
 
@@ -144,26 +144,26 @@ namespace eCommerce
             }
         }
 
-        protected void btnSolicitarVendedor_Click(object sender, EventArgs e)
-        {
-            if (Session["usuario"] is Usuario usuario)
-            {
-                SolicitudNegocio solicitudNeg = new SolicitudNegocio();
-
-                bool yaSolicitado = solicitudNeg.SolicitudExistente(usuario.DNI);
-                if (!yaSolicitado)
-                {
-                    solicitudNeg.CrearSolicitud(usuario.DNI);
-                    btnSolicitarVendedor.Text = "Solicitud enviada";
-                    btnSolicitarVendedor.Enabled = false;
-                }
-                else
-                {
-                    btnSolicitarVendedor.Text = "Ya enviaste una solicitud";
-                    btnSolicitarVendedor.Enabled = false;
-                }
-            }
-        }
+        //protected void btnSolicitarVendedor_Click(object sender, EventArgs e)
+        //{
+        //    if (Session["usuario"] is Usuario usuario)
+        //    {
+        //        SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+        //
+        //        bool yaSolicitado = solicitudNeg.SolicitudExistente(usuario.DNI);
+        //        if (!yaSolicitado)
+        //        {
+        //            solicitudNeg.CrearSolicitud(usuario.DNI);
+        //            btnSolicitarVendedor.Text = "Solicitud enviada";
+        //            btnSolicitarVendedor.Enabled = false;
+        //        }
+        //        else
+        //        {
+        //            btnSolicitarVendedor.Text = "Ya enviaste una solicitud";
+        //            btnSolicitarVendedor.Enabled = false;
+        //        }
+        //    }
+        //}
 
         protected void rptSolicitudes_ItemCommand(object source, RepeaterCommandEventArgs e)
         {

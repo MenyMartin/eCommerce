@@ -44,15 +44,16 @@
                                     </asp:Repeater>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Ofertas.aspx">Ofertas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Ventas.aspx">Ventas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Contacto.aspx">Contacto</a>
-                            </li>
+                            <asp:Panel ID="pnlAdmin" runat="server" Visible="false">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Administrar.aspx">Administrar</a>
+                                </li>
+                            </asp:Panel>
+                            <asp:Panel ID="pnlContacto" runat="server" Visible="true">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Contacto.aspx">Contacto</a>
+                                </li>
+                            </asp:Panel>
                         </ul>
 
                         <asp:Panel CssClass="d-flex me-3" role="search" runat="server">
@@ -72,7 +73,7 @@
                         </a>
                     </div>
                 </div>
-            </nav>            
+            </nav>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
             <div id="footer" class="text-center py-3 bg-light w-100">

@@ -26,20 +26,24 @@ namespace eCommerce
                 rptCategorias.DataSource = tiposUnicos;
                 rptCategorias.DataBind();
 
-
                 var usuario = Session["usuario"] as dominio.Usuario;
 
                 if (usuario != null && !string.IsNullOrEmpty(usuario.URLFotoPerfil))
                 {
-                    
                     imgUsuario.Src = ResolveUrl(usuario.URLFotoPerfil);
+
+                    // se ve Admin si el usuario es perfil 3
+                    pnlAdmin.Visible = usuario.idPerfil.idPerfil == 3;
+                    pnlContacto.Visible = usuario.idPerfil.idPerfil != 3;
                 }
                 else
                 {
-                    
                     imgUsuario.Src = ResolveUrl("~/img/sin-imagen.png");
-                }
 
+                    // si no es Admin solo Contacto
+                    pnlAdmin.Visible = false;
+                    pnlContacto.Visible = true;
+                }
             }
         }
 

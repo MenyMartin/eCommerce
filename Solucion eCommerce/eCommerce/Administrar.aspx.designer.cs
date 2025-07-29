@@ -24,42 +24,6 @@ namespace eCommerce
         protected global::System.Web.UI.WebControls.Button btnAlta;
 
         /// <summary>
-        /// Control btnSolicitarVendedor.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSolicitarVendedor;
-
-        /// <summary>
-        /// Control LblSolicitudes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblSolicitudes;
-
-        /// <summary>
-        /// Control pnlSolicitudes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSolicitudes;
-
-        /// <summary>
-        /// Control rptSolicitudes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptSolicitudes;
-
-        /// <summary>
         /// Control lblTituloMisProductos.
         /// </summary>
         /// <remarks>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master 1.Master" AutoEventWireup="true" CodeBehind="Ventas.aspx.cs" Inherits="eCommerce.Ventas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master 1.Master" AutoEventWireup="true" CodeBehind="Administrar.aspx.cs" Inherits="eCommerce.Ventas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -9,14 +9,14 @@
 
         <div class="d-flex justify-content-center gap-3">
 
-            <asp:Button ID="btnAlta" runat="server" Text="Vender un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
-            <asp:Button ID="btnSolicitarVendedor" runat="server" Text="Quiero ser vendedor" CssClass="btn btn-primary" OnClick="btnSolicitarVendedor_Click" Visible="false" />
-            <asp:Label ID="LblSolicitudes" runat="server" CssClass="h2 mb-4" Text="Solicitudes para ser vendedor" Visible="false"></asp:Label>
+            <asp:Button ID="btnAlta" runat="server" Text="Dar de alta un producto" CssClass="btn btn-success" OnClick="btnAlta_Click" />
+            <%--<asp:Button ID="btnSolicitarVendedor" runat="server" Text="Quiero ser vendedor" CssClass="btn btn-primary" OnClick="btnSolicitarVendedor_Click" Visible="false" />
+            <asp:Label ID="LblSolicitudes" runat="server" CssClass="h2 mb-4" Text="Solicitudes para ser vendedor" Visible="false"></asp:Label>--%>
         </div>
 
     </div>
 
-    <asp:Panel ID="pnlSolicitudes" runat="server" Visible="false" CssClass="container mt-5">
+    <%--<asp:Panel ID="pnlSolicitudes" runat="server" Visible="false" CssClass="container mt-5">
         <asp:Repeater ID="rptSolicitudes" runat="server" OnItemCommand="rptSolicitudes_ItemCommand">
             <HeaderTemplate>
                 <div class="row mb-3">
@@ -36,7 +36,7 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-    </asp:Panel>
+    </asp:Panel>--%>
 
     <div class="container mt-4">
         <asp:Label ID="lblTituloMisProductos" runat="server" CssClass="h2 mb-4" Text="Mis productos en venta"></asp:Label>

@@ -42,6 +42,24 @@ namespace eCommerce
         protected global::System.Web.UI.WebControls.Repeater rptCategorias;
 
         /// <summary>
+        /// Control pnlAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAdmin;
+
+        /// <summary>
+        /// Control pnlContacto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlContacto;
+
+        /// <summary>
         /// Control txtBuscar.
         /// </summary>
         /// <remarks>
