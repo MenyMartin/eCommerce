@@ -47,12 +47,12 @@ namespace eCommerce
                         rptImagenes.DataBind();
 
                         UsuarioNegocio userNeg = new UsuarioNegocio();
-                        Usuario vendedor = userNeg.ObtenerVendedor(producto.DNIVendedor);
-                        if (vendedor != null)
-                        {
-                            lblVendedor.Text = vendedor.nombre + " " + vendedor.apellido;
-                            imgVendedor.ImageUrl = vendedor.URLFotoPerfil;
-                        }
+                        //Usuario vendedor = userNeg.ObtenerVendedor(producto.DNIVendedor);
+                        //if (vendedor != null)
+                        //{
+                        //    lblVendedor.Text = vendedor.nombre + " " + vendedor.apellido;
+                        //    imgVendedor.ImageUrl = vendedor.URLFotoPerfil;
+                        //}
 
                         if (Session["usuario"] is Usuario usuario)
                         {
@@ -73,15 +73,15 @@ namespace eCommerce
                                     btnBloquearProducto.Visible = true;
                                     btnDesbloquearProducto.Visible = false;
                                 }
-
-                                btnAgregarAlCariito.Visible = false; // el admin no compra
+                                // el admin no compra
+                                btnAgregarAlCariito.Visible = false; 
                             }
 
                             //no se puede autocomprar
-                            if (usuario.DNI == producto.DNIVendedor)
-                            {
-                                btnAgregarAlCariito.Visible = false;
-                            }
+                            //if (usuario.DNI == producto.DNIVendedor)
+                            //{
+                            //    btnAgregarAlCariito.Visible = false;
+                            //}
                         }
                     }
                 }

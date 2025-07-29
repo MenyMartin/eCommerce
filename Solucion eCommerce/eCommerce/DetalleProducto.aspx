@@ -71,7 +71,7 @@
         </div>
 
         <!-- Datos del vendedor -->
-        <div class="row mt-5 border-top pt-4">
+        <%--<div class="row mt-5 border-top pt-4">
             <div class="col-md-2 text-center">
                 <div style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; margin: auto;">
                     <asp:Image ID="imgVendedor" runat="server" CssClass="w-100 h-100 object-fit-cover" />
@@ -81,7 +81,7 @@
                 <h5 class="mb-0">Vendedor:
                     <asp:Label ID="lblVendedor" runat="server" /></h5>
             </div>
-        </div>
+        </div>--%>
     </div>
 
 </asp:Content>

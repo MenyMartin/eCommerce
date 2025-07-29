@@ -28,11 +28,7 @@
                 <asp:Button ID="btnLogin" Text="LogIn" runat="server" CssClass="btn btn-primary" OnClick="btnLogin_Click" />
             </div>
         </div>
-
-        <div class="mt-3">
-            <a href="#">¿Olvidaste tu contraseña?</a><br />
-            <br />
-        </div>
+       
 
         <div>
             <label for="btnRegistrarse" class="form-label">¿Todavía no tenés cuenta?</label>
