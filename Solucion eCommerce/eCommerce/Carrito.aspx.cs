@@ -157,7 +157,7 @@ namespace eCommerce
 
             lblMensaje.Text = "¡Compra finalizada correctamente!";
             lblMensaje.CssClass = "alert alert-success";
-            Response.Redirect("MiPerfil.aspx");
+            Response.Redirect("MisPedidos.aspx");
         }
 
         protected void rptCarrito_ItemCommand(object source, RepeaterCommandEventArgs e)

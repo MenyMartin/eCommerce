@@ -108,6 +108,7 @@
     <Content Include="ListaVentas.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="MiPerfil.aspx" />
+    <Content Include="MisPedidos.aspx" />
     <Content Include="Ofertas.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -199,6 +200,13 @@
     </Compile>
     <Compile Include="MiPerfil.aspx.designer.cs">
       <DependentUpon>MiPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisPedidos.aspx.cs">
+      <DependentUpon>MisPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisPedidos.aspx.designer.cs">
+      <DependentUpon>MisPedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ofertas.aspx.cs">
       <DependentUpon>Ofertas.aspx</DependentUpon>

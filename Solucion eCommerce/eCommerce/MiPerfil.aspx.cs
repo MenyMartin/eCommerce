@@ -40,21 +40,21 @@ namespace eCommerce
 
                 //----- secion pedidos                
 
-                long dni = ((Usuario)Session["usuario"]).DNI;
+                //long dni = ((Usuario)Session["usuario"]).DNI;
 
-                PedidoNegocio pedidoNegocio = new PedidoNegocio();
-                List<Pedido> pedidos = pedidoNegocio.ListarPedidosPorUsuario(dni);
+                //PedidoNegocio pedidoNegocio = new PedidoNegocio();
+                //List<Pedido> pedidos = pedidoNegocio.ListarPedidosPorUsuario(dni);
 
 
-                PedidoNegocio negocioPedido = new PedidoNegocio();
+                //PedidoNegocio negocioPedido = new PedidoNegocio();
 
-                foreach (Pedido pedido in pedidos)
-                {
-                    pedido.detalles = negocioPedido.ListarDetallesPorPedido(pedido.idPedido);
-                }
+                //foreach (Pedido pedido in pedidos)
+                //{
+                //    pedido.detalles = negocioPedido.ListarDetallesPorPedido(pedido.idPedido);
+                //}
 
-                rptPedidos.DataSource = pedidos;
-                rptPedidos.DataBind();
+                //rptPedidos.DataSource = pedidos;
+                //rptPedidos.DataBind();
             }
 
             
