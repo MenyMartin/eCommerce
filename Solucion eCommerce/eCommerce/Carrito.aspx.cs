@@ -69,13 +69,16 @@ namespace eCommerce
 
             decimal total = items.Sum(x => x.cantidad * x.precioUnitario);
 
+            int idTipoPago = int.Parse(medioPago);
+
             // 1. Crear pedido
             Pedido nuevoPedido = new Pedido
             {
                 dni = dni, //guardo el dni en sesion en dni atributo de Pedido
                 fechaPedido = DateTime.Now,
                 estado = "Pendiente",
-                total = (decimal)total
+                total = (decimal)total,
+                idTipoPago = idTipoPago
             };
 
             int idPedido = pedidoNegocio.CrearPedido(nuevoPedido);
@@ -97,6 +100,45 @@ namespace eCommerce
 
             // 3. Cerrar carrito
             carritoNegocio.CerrarCarrito(dni);
+
+
+
+            // 4. Actualizar estadísticas del usuario
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            usuario = usuarioNegocio.BuscarPorDNI(usuario.DNI);
+
+            usuario.dineroGastado += total;
+            usuario.pedidosRealizados += 1;
+            usuario.productosPedidos += items.Sum(i => i.cantidad);
+
+            // Buscar el producto más pedido en esta compra
+            var productoMasCompradoEnEstaCompra = items
+                .GroupBy(i => i.idProducto)
+                .Select(g => new { idProducto = g.Key, cantidad = g.Sum(i => i.cantidad) })
+                .OrderByDescending(g => g.cantidad)
+                .FirstOrDefault();
+
+            // Verificar si debe actualizarse el producto favorito
+            if (productoMasCompradoEnEstaCompra != null)
+            {
+                if (usuario.productoMasPedido == null)
+                {
+                    usuario.productoMasPedido = new Producto { idProducto = productoMasCompradoEnEstaCompra.idProducto };
+                }
+                else
+                {
+                    int cantidadActualFavorito = pedidoNegocio.ObtenerCantidadTotalComprada(usuario.DNI, usuario.productoMasPedido.idProducto);
+                    int nuevaCantidad = pedidoNegocio.ObtenerCantidadTotalComprada(usuario.DNI, productoMasCompradoEnEstaCompra.idProducto);
+
+                    if (nuevaCantidad > cantidadActualFavorito)
+                    {
+                        usuario.productoMasPedido = new Producto { idProducto = productoMasCompradoEnEstaCompra.idProducto };
+                    }
+                }
+            }
+
+            // Persistir en la base de datos
+            usuarioNegocio.ActualizarEstadisticasUsuario(usuario);
 
             try
             {

@@ -14,11 +14,12 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Pedidos (DNI, FechaPedido, Estado, Total) OUTPUT INSERTED.IdPedido VALUES (@dni, @fecha, @estado, @total)");
+                datos.setearConsulta("INSERT INTO Pedidos (DNI, FechaPedido, Estado, Total, IdTipoPago) OUTPUT INSERTED.IdPedido VALUES (@dni, @fecha, @estado, @total, @IdTipoPago)");
                 datos.setearParametro("@dni", pedido.dni);
                 datos.setearParametro("@fecha", pedido.fechaPedido);
                 datos.setearParametro("@estado", pedido.estado);
                 datos.setearParametro("@total", pedido.total);
+                datos.setearParametro("@IdTipoPago", pedido.idTipoPago);
                 return (int)datos.ejecutarScalar();
             }
             finally
@@ -132,6 +133,37 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public int ObtenerCantidadTotalComprada(long dni, int idProducto)
+        {
+            int total = 0;
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"
+            SELECT SUM(pd.cantidad)
+            FROM PedidoDetalle pd
+            INNER JOIN Pedidos p ON pd.idPedido = p.idPedido
+            WHERE p.dni = @dni AND pd.idProducto = @idProducto");
+
+                datos.setearParametro("@dni", dni);
+                datos.setearParametro("@idProducto", idProducto);
+
+                object resultado = datos.ejecutarScalar();
+
+                if (resultado != DBNull.Value && resultado != null)
+                    total = Convert.ToInt32(resultado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return total;
         }
     }
 }

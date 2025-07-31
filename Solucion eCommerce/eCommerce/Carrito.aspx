@@ -45,9 +45,10 @@
    <div class="d-flex justify-content-center mt-4">
         <asp:DropDownList ID="ddlMedioPago" runat="server" CssClass="form-select w-100" style="max-width: 400px;">
             <asp:ListItem Text="Seleccione un medio de pago" Value="" />
-            <asp:ListItem Text="Tarjeta" Value="Tarjeta" />
-            <asp:ListItem Text="Mercado Pago" Value="MercadoPago" />
-            <asp:ListItem Text="Efectivo" Value="Efectivo" />
+            <asp:ListItem Text="Efectivo" Value="1" />
+            <asp:ListItem Text="Tarjeta Débito" Value="2" />
+            <asp:ListItem Text="Tarjeta Crédito" Value="3" />
+            <asp:ListItem Text="Mercado Pago" Value="4" />            
         </asp:DropDownList>
     </div>
 

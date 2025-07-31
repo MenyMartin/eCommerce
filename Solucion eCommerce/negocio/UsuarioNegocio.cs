@@ -317,7 +317,92 @@ namespace negocio
             }
         }
 
+        public void ActualizarEstadisticasUsuario(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"
+            UPDATE Usuarios 
+            SET DineroGastado = @dineroGastado, 
+                PedidosRealizados = @pedidosRealizados, 
+                ProductosPedidos = @productosPedidos,
+                IdProductoMasPedido = @productoMasPedido
+            WHERE DNI = @dni");
+
+                datos.setearParametro("@dineroGastado", usuario.dineroGastado);
+                datos.setearParametro("@pedidosRealizados", usuario.pedidosRealizados);
+                datos.setearParametro("@productosPedidos", usuario.productosPedidos);
+                datos.setearParametro("@productoMasPedido", usuario.productoMasPedido != null ? (object)usuario.productoMasPedido.idProducto : DBNull.Value);
+                datos.setearParametro("@dni", usuario.DNI);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Usuario BuscarPorDNI(long dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Usuario usuario = null;
+
+            try
+            {
+                datos.setearConsulta(@"SELECT DNI, Nombre, Apellido, Edad, Direccion, URLFotoPerfil, FechaRegistro, 
+                                              Email, DineroGastado, PedidosRealizados, ProductosPedidos, IdProductoMasPedido
+                                       FROM Usuarios
+                                       WHERE DNI = @DNI");
+                    
+                datos.setearParametro("@DNI", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    usuario = new Usuario
+                    {
+                        DNI = (long)datos.Lector["DNI"],
+                        nombre = datos.Lector["Nombre"].ToString(),
+                        apellido = datos.Lector["Apellido"].ToString(),
+                        edad = (int)datos.Lector["Edad"],
+                        direccion = datos.Lector["Direccion"].ToString(),
+                        URLFotoPerfil = datos.Lector["URLFotoPerfil"].ToString(),
+                        fechaRegistro = (DateTime)datos.Lector["FechaRegistro"],
+                        email = datos.Lector["Email"].ToString(),
+                        dineroGastado = datos.Lector["DineroGastado"] != DBNull.Value ? (decimal)datos.Lector["DineroGastado"] : 0,
+                        pedidosRealizados = datos.Lector["PedidosRealizados"] != DBNull.Value ? (int)datos.Lector["PedidosRealizados"] : 0,
+                        productosPedidos = datos.Lector["ProductosPedidos"] != DBNull.Value ? (int)datos.Lector["ProductosPedidos"] : 0
+                    };
+
+                    if (datos.Lector["IdProductoMasPedido"] != DBNull.Value)
+                    {
+                        int idProducto = (int)datos.Lector["IdProductoMasPedido"];
+                        ProductoNegocio productoNegocio = new ProductoNegocio();
+                        usuario.productoMasPedido = productoNegocio.BuscarPorID(idProducto);
+                    }
+                }
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 
     
+
+
 }

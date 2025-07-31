@@ -39,6 +39,15 @@ namespace eCommerce
             CargarUsuarios(filtro);
         }
 
+        protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "VerEstadisticas")
+            {
+                string dni = e.CommandArgument.ToString();
+                Response.Redirect("Estadisticas.aspx?dni=" + dni);
+            }
+        }
+
 
     }
 }

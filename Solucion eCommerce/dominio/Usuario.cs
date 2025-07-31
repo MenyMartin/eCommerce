@@ -17,5 +17,10 @@ namespace dominio
         public Perfil idPerfil { get; set; }
         public String email { get; set; }
         public String contraseña { get; set; }
+        public decimal dineroGastado { get; set; }
+        public int pedidosRealizados { get; set; }
+        public Producto productoMasPedido { get; set; }
+        public int productosPedidos { get; set; }
+
     }
 }
