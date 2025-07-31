@@ -14,12 +14,13 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Pedidos (DNI, FechaPedido, Estado, Total, IdTipoPago) OUTPUT INSERTED.IdPedido VALUES (@dni, @fecha, @estado, @total, @IdTipoPago)");
+                datos.setearConsulta("INSERT INTO Pedidos (DNI, FechaPedido, Estado, Total, IdTipoPago, Entrega) OUTPUT INSERTED.IdPedido VALUES (@dni, @fecha, @estado, @total, @IdTipoPago, @Entrega)");
                 datos.setearParametro("@dni", pedido.dni);
                 datos.setearParametro("@fecha", pedido.fechaPedido);
                 datos.setearParametro("@estado", pedido.estado);
                 datos.setearParametro("@total", pedido.total);
                 datos.setearParametro("@IdTipoPago", pedido.idTipoPago);
+                datos.setearParametro("@Entrega", pedido.entrega);
                 return (int)datos.ejecutarScalar();
             }
             finally
@@ -103,7 +104,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(" SELECT p.idPedido, p.dni, p.fechaPedido, p.estado, p.total, p.idTipoPago, mp.tipoPago FROM Pedidos p " +
+                datos.setearConsulta(" SELECT p.idPedido, p.dni, p.fechaPedido, p.estado, p.total, p.idTipoPago, p.Entrega, mp.tipoPago FROM Pedidos p " +
                                      "LEFT JOIN MediosDePago mp ON p.idTipoPago = mp.idTipoPago WHERE p.dni = @idusuario ORDER BY p.fechaPedido DESC");
                 datos.setearParametro("@idUsuario", idUsuario);
                 datos.ejecutarLectura();
@@ -117,6 +118,7 @@ namespace negocio
                     pedido.estado = datos.Lector["Estado"].ToString();
                     pedido.total = Convert.ToDecimal(datos.Lector["Total"]);
                     pedido.nombreTipoPago = datos.Lector["tipoPago"] != DBNull.Value ? datos.Lector["tipoPago"].ToString() : "No especificado";
+                    pedido.entrega = datos.Lector["Entrega"].ToString();
 
 
 

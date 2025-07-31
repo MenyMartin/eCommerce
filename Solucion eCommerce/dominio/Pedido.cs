@@ -18,6 +18,8 @@ namespace dominio
 
         public string nombreTipoPago { get; set; }
 
+        public String entrega { get; set; }
+
         public List<PedidoDetalleExtendido> detalles { get; set; }
 
     }

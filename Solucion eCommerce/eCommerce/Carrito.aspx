@@ -51,6 +51,13 @@
             <asp:ListItem Text="Mercado Pago" Value="4" />            
         </asp:DropDownList>
     </div>
+    <div class="d-flex justify-content-center mt-4">
+     <asp:DropDownList ID="ddlEntrega" runat="server" CssClass="form-select w-100" style="max-width: 400px;">
+         <asp:ListItem Text="Seleccione el tipo de entrega" Value="" />
+         <asp:ListItem Text="Envío" Value="Envio" />
+         <asp:ListItem Text="Retiro" Value="Retiro" />                    
+     </asp:DropDownList>
+ </div>
 
     <div class="mb-4 text-center">
         <asp:Button ID="btnFinalizarCompra" runat="server" Text="Finalizar Compra" CssClass="btn btn-success" OnClick="btnFinalizarCompra_Click" />

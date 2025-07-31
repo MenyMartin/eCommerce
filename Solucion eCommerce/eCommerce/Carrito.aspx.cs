@@ -44,10 +44,18 @@ namespace eCommerce
         protected void btnFinalizarCompra_Click(object sender, EventArgs e)
         {
             string medioPago = ddlMedioPago.SelectedValue;
+            string tipoEntrega = ddlEntrega.SelectedValue;
 
             if (string.IsNullOrEmpty(medioPago))
             {
                 lblMensaje.Text = "Por favor, seleccione un medio de pago.";
+                lblMensaje.CssClass = "alert alert-warning";
+                return;
+            }
+
+            if (string.IsNullOrEmpty(tipoEntrega))
+            {
+                lblMensaje.Text = "Por favor, seleccione un tipo de entrega.";
                 lblMensaje.CssClass = "alert alert-warning";
                 return;
             }
@@ -78,7 +86,8 @@ namespace eCommerce
                 fechaPedido = DateTime.Now,
                 estado = "Pendiente",
                 total = (decimal)total,
-                idTipoPago = idTipoPago
+                idTipoPago = idTipoPago,
+                entrega = tipoEntrega,
             };
 
             int idPedido = pedidoNegocio.CrearPedido(nuevoPedido);
