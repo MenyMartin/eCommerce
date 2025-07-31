@@ -16,6 +16,8 @@ namespace dominio
 
         public int idTipoPago { get; set; }
 
+        public string nombreTipoPago { get; set; }
+
         public List<PedidoDetalleExtendido> detalles { get; set; }
 
     }

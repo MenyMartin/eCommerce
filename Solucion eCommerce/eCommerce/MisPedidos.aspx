@@ -12,7 +12,7 @@
                 <ItemTemplate>
                     <div class="card my-2">
                         <div class="card-header" data-bs-toggle="collapse" href='<%# "#collapse" + Eval("idPedido") %>' style="cursor: pointer" aria-expanded="false" aria-controls='<%# "collapse" + Eval("idPedido") %>'>
-                            Pedido #<%# Eval("idPedido") %> - <%# Eval("fechaPedido", "{0:dd/MM/yyyy}") %> - Total: $<%# Eval("total") %>
+                            Pedido #<%# Eval("idPedido") %> - <%# Eval("fechaPedido", "{0:dd/MM/yyyy}") %> - Total: $<%# Eval("total")%> - Medio de pago: <%# Eval("nombreTipoPago") %>
                         </div>
                         <div id='<%# "collapse" + Eval("idPedido") %>' class="collapse">
                             <div class="card-body">

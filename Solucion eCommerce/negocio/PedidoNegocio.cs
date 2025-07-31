@@ -103,7 +103,8 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdPedido, DNI, FechaPedido, Estado, Total FROM Pedidos WHERE DNI = @idUsuario");
+                datos.setearConsulta(" SELECT p.idPedido, p.dni, p.fechaPedido, p.estado, p.total, p.idTipoPago, mp.tipoPago FROM Pedidos p " +
+                                     "LEFT JOIN MediosDePago mp ON p.idTipoPago = mp.idTipoPago WHERE p.dni = @idusuario ORDER BY p.fechaPedido DESC");
                 datos.setearParametro("@idUsuario", idUsuario);
                 datos.ejecutarLectura();
 
@@ -115,8 +116,10 @@ namespace negocio
                     pedido.fechaPedido = (DateTime)datos.Lector["FechaPedido"];
                     pedido.estado = datos.Lector["Estado"].ToString();
                     pedido.total = Convert.ToDecimal(datos.Lector["Total"]);
+                    pedido.nombreTipoPago = datos.Lector["tipoPago"] != DBNull.Value ? datos.Lector["tipoPago"].ToString() : "No especificado";
 
-                    
+
+
                     PedidoNegocio negocioDetalle = new PedidoNegocio();
                     pedido.detalles = negocioDetalle.ListarDetallesPorPedido(pedido.idPedido);
 
