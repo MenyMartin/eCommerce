@@ -65,7 +65,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Administrar.aspx" />
     <Content Include="Carrito.aspx" />
     <Content Include="Categorias.aspx" />
     <Content Include="Contacto.aspx" />
@@ -88,6 +87,7 @@
     <Content Include="default.aspx" />
     <Content Include="DetalleProducto.aspx" />
     <Content Include="EdicionProducto.aspx" />
+    <Content Include="Estadisticas.aspx" />
     <Content Include="img\pelacables\pelacables1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -104,6 +104,8 @@
     <Content Include="img\tester\tester1.png" />
     <Content Include="img\tester\tester2.png" />
     <Content Include="img\tester\tester3.png" />
+    <Content Include="ListaUsuarios.aspx" />
+    <Content Include="ListaVentas.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="MiPerfil.aspx" />
     <Content Include="Ofertas.aspx" />
@@ -113,6 +115,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="SeguimientoPedidos.aspx" />
     <Content Include="styles\logIn .css" />
     <Content Include="styles\master.css" />
     <Content Include="AltaProducto.aspx" />
@@ -120,13 +123,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administrar.aspx.cs">
-      <DependentUpon>Administrar.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Administrar.aspx.designer.cs">
-      <DependentUpon>Administrar.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,6 +165,27 @@
     <Compile Include="EdicionProducto.aspx.designer.cs">
       <DependentUpon>EdicionProducto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Estadisticas.aspx.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estadisticas.aspx.designer.cs">
+      <DependentUpon>Estadisticas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListaUsuarios.aspx.cs">
+      <DependentUpon>ListaUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaUsuarios.aspx.designer.cs">
+      <DependentUpon>ListaUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListaVentas.aspx.cs">
+      <DependentUpon>ListaVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaVentas.aspx.designer.cs">
+      <DependentUpon>ListaVentas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="LogIn.aspx.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -204,6 +221,13 @@
     </Compile>
     <Compile Include="AltaProducto.aspx.designer.cs">
       <DependentUpon>AltaProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SeguimientoPedidos.aspx.cs">
+      <DependentUpon>SeguimientoPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SeguimientoPedidos.aspx.designer.cs">
+      <DependentUpon>SeguimientoPedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ventas.aspx.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>

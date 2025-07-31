@@ -11,7 +11,7 @@ namespace eCommerce
 {
 
 
-    public partial class Administrar
+    public partial class ListaVentas
     {
     }
 }

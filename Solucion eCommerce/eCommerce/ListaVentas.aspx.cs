@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace eCommerce
 {
-    public partial class Administrar : System.Web.UI.Page
+    public partial class ListaVentas : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

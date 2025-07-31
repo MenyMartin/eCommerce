@@ -227,5 +227,46 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Usuario> ListarUsuariosPerfil1()
+        {
+            List<Usuario> lista = new List<Usuario>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT DNI, Nombre, Apellido, Edad, Direccion, URLFotoPerfil, Email, FechaRegistro
+                               FROM Usuarios
+                               WHERE idPerfil = 1");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario
+                    {
+                        DNI = (long)datos.Lector["DNI"],
+                        nombre = datos.Lector["Nombre"].ToString(),
+                        apellido = datos.Lector["Apellido"].ToString(),
+                        edad = (int)datos.Lector["Edad"],
+                        direccion = datos.Lector["Direccion"].ToString(),
+                        URLFotoPerfil = datos.Lector["URLFotoPerfil"].ToString(),
+                        email = datos.Lector["Email"].ToString(),
+                        fechaRegistro = Convert.ToDateTime(datos.Lector["FechaRegistro"]),
+                        
+                    };
+                    lista.Add(usuario);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
