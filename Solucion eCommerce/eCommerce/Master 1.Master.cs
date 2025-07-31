@@ -34,6 +34,7 @@ namespace eCommerce
 
                     // se ve Admin si el usuario es perfil 3
                     pnlAdmin.Visible = usuario.idPerfil.idPerfil == 3;
+                    pnlVentas.Visible = usuario.idPerfil.idPerfil == 3;
                     pnlContacto.Visible = usuario.idPerfil.idPerfil != 3;
                 }
                 else

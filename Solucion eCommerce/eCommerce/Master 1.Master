@@ -44,9 +44,36 @@
                                     </asp:Repeater>
                                 </ul>
                             </li>
-                            <asp:Panel ID="pnlAdmin" runat="server" Visible="false">
+                            <asp:Panel ID="pnlVentas" runat="server" Visible="false">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Administrar.aspx">Administrar</a>
+                                    <a class="nav-link" href="Ventas.aspx">Ventas</a>
+                                </li>
+                            </asp:Panel>
+                            <asp:Panel ID="pnlAdmin" runat="server" Visible="false">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                        <li>
+                                            <h6 class="dropdown-header">Clientes</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="ListaUsuarios.aspx">Lista de clientes</a></li>
+                                        <li><a class="dropdown-item" href="Estadisticas.aspx">Estadísticas</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <h6 class="dropdown-header">Ventas</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="ListaVentas.aspx">Lista de ventas</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <h6 class="dropdown-header">Pedidos</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="SeguimientoPedidos.aspx">Seguimiento de pedidos</a></li>
+                                    </ul>
                                 </li>
                             </asp:Panel>
                             <asp:Panel ID="pnlContacto" runat="server" Visible="true">

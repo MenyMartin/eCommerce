@@ -33,10 +33,10 @@ namespace eCommerce
                 lblPassword.Text = usuario.contraseña;
                 lblFechaRegistro.Text = usuario.fechaRegistro.ToString("dd/MM/yyyy");
 
-                if (usuario.idPerfil.idPerfil == 3)
-                {
-                    btnPanelAdmin.Visible = true;
-                }
+                //if (usuario.idPerfil.idPerfil == 3)
+                //{
+                //    btnPanelAdmin.Visible = true;
+                //}
 
                 //----- secion pedidos                
 
@@ -81,9 +81,9 @@ namespace eCommerce
             Response.Redirect("Default.aspx");
         }
 
-        protected void btnPanelAdmin_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Admin.aspx");
-        }
+        //protected void btnPanelAdmin_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("Admin.aspx");
+        //}
     }
 }
