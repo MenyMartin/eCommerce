@@ -268,5 +268,56 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Usuario> BuscarUsuariosPorFiltro(string filtro)
+        {
+            List<Usuario> listaFiltrada = new List<Usuario>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string query = @"SELECT u.DNI, u.nombre, u.apellido, u.edad, u.direccion, u.URLFotoPerfil, 
+                                u.fechaRegistro, u.email
+                         FROM Usuarios u
+                         WHERE u.nombre LIKE @filtro
+                            OR u.apellido LIKE @filtro
+                            OR u.email LIKE @filtro
+                            OR u.direccion LIKE @filtro
+                            OR CAST(u.DNI AS VARCHAR) LIKE @filtro";
+
+                datos.setearConsulta(query);
+                datos.setearParametro("@filtro", "%" + filtro + "%");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario aux = new Usuario();
+                    aux.DNI = (long)datos.Lector["DNI"];
+                    aux.nombre = datos.Lector["nombre"].ToString();
+                    aux.apellido = datos.Lector["apellido"].ToString();
+                    aux.email = datos.Lector["email"].ToString();
+                    aux.direccion = datos.Lector["direccion"].ToString();
+                    aux.URLFotoPerfil = datos.Lector["URLFotoPerfil"].ToString();
+                    aux.edad = (int)datos.Lector["edad"];
+                    aux.fechaRegistro = (DateTime)datos.Lector["fechaRegistro"];
+                    
+
+                    listaFiltrada.Add(aux);
+                }
+
+                return listaFiltrada;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
+
+    
 }

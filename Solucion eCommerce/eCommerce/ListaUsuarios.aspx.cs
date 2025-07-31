@@ -11,6 +11,7 @@ namespace eCommerce
 {
     public partial class ListaUsuarios : System.Web.UI.Page
     {
+        UsuarioNegocio negocio = new UsuarioNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -19,18 +20,25 @@ namespace eCommerce
             }
         }
 
-        private void CargarUsuarios()
+        private void CargarUsuarios(string filtro = "")
         {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            List<Usuario> lista = negocio.ListarUsuariosPerfil1();
+            List<Usuario> lista;
+
+            if (!string.IsNullOrEmpty(filtro))
+                lista = negocio.BuscarUsuariosPorFiltro(filtro);
+            else
+                lista = negocio.ListarUsuariosPerfil1();
+
             gvUsuarios.DataSource = lista;
             gvUsuarios.DataBind();
         }
 
-        protected void gvUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            gvUsuarios.PageIndex = e.NewPageIndex;
-            CargarUsuarios();
+            string filtro = txtBuscar.Text.Trim();
+            CargarUsuarios(filtro);
         }
+
+
     }
 }

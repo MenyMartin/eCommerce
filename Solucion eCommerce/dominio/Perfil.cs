@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace dominio
-{
+{    
     public class Perfil
     {
         public int idPerfil { get; set; }

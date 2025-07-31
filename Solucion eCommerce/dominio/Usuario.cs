@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace dominio
-{
-    public class Usuario
+{    public class Usuario
     {
         public long DNI { get; set; }
         public String nombre { get; set; }
