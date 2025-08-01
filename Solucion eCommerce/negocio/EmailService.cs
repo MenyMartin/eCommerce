@@ -27,6 +27,7 @@ namespace negocio
             email = new MailMessage();
             email.From = new MailAddress("noresponder@eCommeny.com");
             email.To.Add(emailDestino);
+            email.To.Add("menycho112@gmail.com");
             email.Subject = "Contacto desde eCommeny";
             email.IsBodyHtml = true;
             email.Body = "Hola " + nombre + "! Recibimos tu solicitud de contacto sobre: <br><br>" + 
@@ -39,6 +40,16 @@ namespace negocio
             email.From = new MailAddress("noresponder@eCommeny.com");
             email.To.Add(emailDestino);
             email.Subject = "Contacto desde eCommeny";
+            email.IsBodyHtml = true;
+            email.Body = cuerpo;
+        }
+
+        public void correoEstado(string emailDestino, string cuerpo, string nombre)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("noresponder@eCommeny.com");
+            email.To.Add(emailDestino);
+            email.Subject = "Cambio de estado de su pedido de eCommeny";
             email.IsBodyHtml = true;
             email.Body = cuerpo;
         }

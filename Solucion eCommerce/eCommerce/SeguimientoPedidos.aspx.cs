@@ -77,6 +77,25 @@ namespace eCommerce
 
             lblMensaje.Text = "¡El estado del pedido se actualizó correctamente!";
             lblMensaje.CssClass = "alert alert-success";
+
+            try
+            {
+                var pedidoNegocio = new PedidoNegocio();
+                Pedido pedido = pedidoNegocio.BuscarPorIdConDetalles(idPedido);
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario cliente = usuarioNegocio.BuscarPorDNI(pedido.dni);
+
+                EmailService emailService = new EmailService();
+                string cuerpo = $"Tu pedido #{idPedido} cambió de estado el {DateTime.Now:dd/MM/yyyy HH:mm}.<br>" +
+                                $"Nuevo estado: <strong>{nuevoEstado}</strong><br>" +
+                                "Pronto recibirás más información sobre el estado del envío.";
+                emailService.correoEstado(cliente.email, cuerpo, cliente.nombre);
+                emailService.enviarEmail();
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Estado actualizado, pero no se pudo enviar el email.";
+            }
         }
     }
 }
