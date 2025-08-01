@@ -170,5 +170,140 @@ namespace negocio
             }
             return total;
         }
+
+        public List<Pedido> ListarTodosConDetalles()
+        {
+            List<Pedido> lista = new List<Pedido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT P.idPedido, P.dni, P.fechaPedido, P.estado, P.total, 
+                                              P.idTipoPago, MP.TipoPago AS nombreTipoPago, P.entrega
+                                       FROM Pedidos P
+                                       INNER JOIN MediosDePago MP ON MP.IdTipoPago = P.idTipoPago");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Pedido pedido = new Pedido();
+                    pedido.idPedido = (int)datos.Lector["idPedido"];
+                    pedido.dni = (long)datos.Lector["dni"];
+                    pedido.fechaPedido = (DateTime)datos.Lector["fechaPedido"];
+                    pedido.estado = datos.Lector["estado"].ToString();
+                    pedido.total = (decimal)datos.Lector["total"];
+                    pedido.idTipoPago = (int)datos.Lector["idTipoPago"];
+                    pedido.nombreTipoPago = datos.Lector["nombreTipoPago"].ToString();
+                    pedido.entrega = datos.Lector["entrega"].ToString();
+
+                    lista.Add(pedido);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            
+            PedidoNegocio negocioDetalle = new PedidoNegocio();
+            foreach (Pedido pedido in lista)
+            {
+                pedido.detalles = negocioDetalle.ListarDetallesPorPedido(pedido.idPedido);
+            }
+
+            return lista;
+        }
+
+        public Pedido BuscarPorIdConDetalles(int idPedido)
+        {
+            Pedido pedido = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT 
+                                    p.IDPedido,
+                                    p.DNI,
+                                    p.FechaPedido,
+                                    p.Total,
+                                    p.Estado,
+                                    p.IDTipoPago,
+                                    tp.TipoPago AS NombreTipoPago,
+                                    p.Entrega,
+                                    d.IDProducto,
+                                    d.Cantidad,
+                                    pr.Nombre AS NombreProducto,
+                                    pr.Marca AS MarcaProducto,
+                                    d.PrecioUnitario
+                                FROM Pedidos p
+                                INNER JOIN MediosDePago tp ON tp.IDTipoPago = p.IDTipoPago
+                                INNER JOIN PedidoDetalle d ON d.IDPedido = p.IDPedido
+                                INNER JOIN Productos pr ON pr.IDProducto = d.IDProducto
+                                WHERE p.IDPedido = @idPedido");
+
+                datos.setearParametro("@idPedido", idPedido);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    if (pedido == null)
+                    {
+                        pedido = new Pedido
+                        {
+                            idPedido = Convert.ToInt32(datos.Lector["IDPedido"]),
+                            dni = Convert.ToInt32(datos.Lector["DNI"]),
+                            fechaPedido = Convert.ToDateTime(datos.Lector["FechaPedido"]),
+                            total = Convert.ToDecimal(datos.Lector["Total"]),
+                            estado = datos.Lector["Estado"] != DBNull.Value ? datos.Lector["Estado"].ToString() : "",
+                            idTipoPago = Convert.ToInt32(datos.Lector["IDTipoPago"]),
+                            nombreTipoPago = datos.Lector["NombreTipoPago"] != DBNull.Value ? datos.Lector["NombreTipoPago"].ToString() : "",
+                            entrega = datos.Lector["Entrega"] != DBNull.Value ? datos.Lector["Entrega"].ToString() : "",
+                            detalles = new List<PedidoDetalleExtendido>()
+                        };
+                    }
+
+                    var detalle = new PedidoDetalleExtendido
+                    {
+                        idProducto = (int)datos.Lector["IDProducto"],
+                        cantidad = (int)datos.Lector["Cantidad"],
+                        precioUnitario = (decimal)datos.Lector["PrecioUnitario"],
+                        nombreProducto = datos.Lector["NombreProducto"].ToString(),
+                        marcaProducto = datos.Lector["MarcaProducto"].ToString()
+                    };
+
+                    pedido.detalles.Add(detalle);
+                }
+
+                return pedido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void CambiarEstadoPedido(int idPedido, string nuevoEstado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE Pedidos SET Estado = @estado WHERE IdPedido = @id");
+                datos.setearParametro("@estado", nuevoEstado);
+                datos.setearParametro("@id", idPedido);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
